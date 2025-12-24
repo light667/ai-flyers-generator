@@ -4,8 +4,14 @@ let currentFlyer = {
     recipient: '',
     tone: '',
     theme: 'moderne',
+    palette: 'parDefaut',
+    fontStyle: 'inter',
+    quality: 'standard',
+    stickers: { hearts: false, stars: false, fireworks: false },
+    bgImage: null,
     message: ''
 };
+let loadedBgImage = null;
 
 // Navigation
 function showLanding() {
@@ -100,6 +106,12 @@ document.getElementById('flyerForm').addEventListener('submit', async (e) => {
     const recipient = document.getElementById('recipient').value || 'toi';
     const tone = document.getElementById('tone').value;
     const theme = document.getElementById('theme').value;
+    const palette = document.getElementById('palette').value;
+    const fontStyle = document.getElementById('fontStyle').value;
+    const quality = document.getElementById('quality').value;
+    const stickersHearts = document.getElementById('stickers-hearts').checked;
+    const stickersStars = document.getElementById('stickers-stars').checked;
+    const stickersFireworks = document.getElementById('stickers-fireworks').checked;
     const customMessage = document.getElementById('customMessage').value.trim();
     
     // Afficher le loader
@@ -115,7 +127,12 @@ document.getElementById('flyerForm').addEventListener('submit', async (e) => {
     }
     
     // Sauvegarder l'état
-    currentFlyer = { type, recipient, tone, theme, message };
+    currentFlyer = { 
+        type, recipient, tone, theme, message,
+        palette, fontStyle, quality,
+        stickers: { hearts: stickersHearts, stars: stickersStars, fireworks: stickersFireworks },
+        bgImage: loadedBgImage
+    };
     
     // Créer le flyer
     await createFlyer(message, type, recipient);
@@ -131,6 +148,17 @@ async function createFlyer(message, type, recipient) {
     const canvas = document.getElementById('flyerCanvas');
     const ctx = canvas.getContext('2d');
     const tone = currentFlyer.tone || 'chaleureux';
+    const quality = currentFlyer.quality || 'standard';
+    const confettiCanvas = document.getElementById('confettiCanvas');
+
+    // Ajuster la taille selon la qualité
+    if (quality === 'hd') {
+        canvas.width = 1200; canvas.height = 1500;
+        if (confettiCanvas) { confettiCanvas.width = 1200; confettiCanvas.height = 1500; }
+    } else {
+        canvas.width = 800; canvas.height = 1000;
+        if (confettiCanvas) { confettiCanvas.width = 800; confettiCanvas.height = 1000; }
+    }
     
     // Configurations détaillées selon le type et le ton
     const backgrounds = {
@@ -172,21 +200,38 @@ async function createFlyer(message, type, recipient) {
     };
     
     const bg = backgrounds[type] || backgrounds['nouvel an'];
-    
-    // Créer le gradient de fond
-    const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-    gradient.addColorStop(0, bg.gradient[0]);
-    gradient.addColorStop(0.5, bg.gradient[1]);
-    gradient.addColorStop(1, bg.gradient[2]);
-    
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
-    // Ajouter un pattern selon le ton
-    addBackgroundPattern(ctx, canvas, bg.pattern, tone);
+
+    // Déterminer la palette de couleurs
+    const paletteColors = getPaletteColors(bg.gradient, currentFlyer.palette);
+
+    // Dessiner le fond: image personnalisée ou dégradé
+    if (currentFlyer.bgImage) {
+        const img = currentFlyer.bgImage;
+        const ratio = Math.max(canvas.width / img.width, canvas.height / img.height);
+        const nw = img.width * ratio;
+        const nh = img.height * ratio;
+        const nx = (canvas.width - nw) / 2;
+        const ny = (canvas.height - nh) / 2;
+        ctx.drawImage(img, nx, ny, nw, nh);
+        // Overlay léger pour lisibilité
+        const overlay = ctx.createLinearGradient(0, 0, 0, canvas.height);
+        overlay.addColorStop(0, 'rgba(0,0,0,0.15)');
+        overlay.addColorStop(1, 'rgba(0,0,0,0.35)');
+        ctx.fillStyle = overlay;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    } else {
+        const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+        gradient.addColorStop(0, paletteColors[0]);
+        gradient.addColorStop(0.5, paletteColors[1]);
+        gradient.addColorStop(1, paletteColors[2]);
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        // Ajouter un pattern selon le ton
+        addBackgroundPattern(ctx, canvas, bg.pattern, tone);
+    }
     
     // Décorations d'angles avec emojis variés
-    ctx.font = '80px Arial';
+    ctx.font = '80px Inter';
     // Coin supérieur gauche
     ctx.fillText(bg.decorEmojis[0], 30, 80);
     ctx.fillText(bg.decorEmojis[1], 120, 100);
@@ -234,13 +279,13 @@ async function createFlyer(message, type, recipient) {
     
     // Titre si ton sérieux ou chaleureux
     if (tone !== 'fun') {
-        ctx.font = 'bold 36px Arial';
-        ctx.fillStyle = bg.gradient[0];
+        ctx.font = getTitleFont(currentFlyer.fontStyle);
+        ctx.fillStyle = paletteColors[0];
         ctx.textAlign = 'center';
         ctx.fillText(bg.title, canvas.width / 2, contentY + 60);
         
         // Ligne décorative sous le titre
-        ctx.strokeStyle = bg.gradient[1];
+        ctx.strokeStyle = paletteColors[1];
         ctx.lineWidth = 2;
         ctx.beginPath();
         ctx.moveTo(150, contentY + 80);
@@ -251,7 +296,7 @@ async function createFlyer(message, type, recipient) {
     // Message principal
     ctx.fillStyle = '#2d3748';
     const fontSize = tone === 'sérieux' ? 28 : 32;
-    ctx.font = `${tone === 'fun' ? 'bold' : ''} ${fontSize}px Arial`;
+    ctx.font = getBodyFont(currentFlyer.fontStyle, tone, fontSize);
     ctx.textAlign = 'center';
     
     // Découper le message en lignes
@@ -272,17 +317,17 @@ async function createFlyer(message, type, recipient) {
     // Nom du destinataire en grand si pas dans le message
     if (!message.toLowerCase().includes(recipient.toLowerCase()) && recipient !== 'toi') {
         y += 20;
-        ctx.font = 'bold 40px Arial';
+        ctx.font = 'bold 40px Inter';
         const nameGradient = ctx.createLinearGradient(0, y - 40, 0, y);
-        nameGradient.addColorStop(0, bg.gradient[0]);
-        nameGradient.addColorStop(1, bg.gradient[1]);
+        nameGradient.addColorStop(0, paletteColors[0]);
+        nameGradient.addColorStop(1, paletteColors[1]);
         ctx.fillStyle = nameGradient;
         ctx.fillText(recipient, canvas.width / 2, y);
     }
     
     // Footer avec date et signature
     const footerY = contentY + contentHeight - 40;
-    ctx.font = tone === 'sérieux' ? '20px Arial' : 'italic 22px Arial';
+    ctx.font = tone === 'sérieux' ? '20px Inter' : 'italic 22px Inter';
     ctx.fillStyle = '#718096';
     
     const today = new Date();
@@ -290,9 +335,15 @@ async function createFlyer(message, type, recipient) {
     ctx.fillText(dateStr, canvas.width / 2, footerY);
     
     // Signature personnalisée
-    ctx.font = '18px Arial';
+    ctx.font = '18px Inter';
     ctx.fillStyle = '#a0aec0';
-    ctx.fillText('✨ Créé avec amour sur ai-flyers.vercel.app ✨', canvas.width / 2, canvas.height - 25);
+    ctx.fillText('✨ Créé avec amour sur aiflyers.netlify.app ✨', canvas.width / 2, canvas.height - 25);
+
+    // Stickers décoratifs optionnels
+    drawStickers(ctx, canvas, currentFlyer.stickers);
+
+    // Confetti de célébration
+    launchConfetti();
 }
 
 // Fonction pour ajouter des patterns de fond
@@ -360,6 +411,137 @@ function addBackgroundPattern(ctx, canvas, pattern, tone, intensity = 0.15) {
     ctx.globalAlpha = 1.0;
 }
 
+// Palette de couleurs
+function getPaletteColors(defaultGradient, palette) {
+    switch (palette) {
+        case 'pastel': return ['#ffd1dc', '#cdeffd', '#d9f7e9'];
+        case 'or': return ['#D4AF37', '#F7E7CE', '#FFF5E1'];
+        case 'tropical': return ['#00c2a8', '#f8c102', '#ff6b6b'];
+        case 'minuit': return ['#0f172a', '#1e293b', '#334155'];
+        default: return defaultGradient;
+    }
+}
+
+// Fonts
+function getTitleFont(fontStyle) {
+    switch (fontStyle) {
+        case 'merriweather': return '700 36px Merriweather';
+        case 'pacifico': return '700 42px Pacifico';
+        default: return '700 36px Inter';
+    }
+}
+
+function getBodyFont(fontStyle, tone, size) {
+    const weight = tone === 'fun' ? '700 ' : '';
+    switch (fontStyle) {
+        case 'merriweather': return `${weight}${size}px Merriweather`;
+        case 'pacifico': return `${size}px Merriweather`; // corps plus lisible
+        default: return `${weight}${size}px Inter`;
+    }
+}
+
+// Stickers décoratifs
+function drawStickers(ctx, canvas, stickers) {
+    if (!stickers) return;
+    if (stickers.hearts) {
+        ctx.font = '32px Inter';
+        for (let i = 0; i < 12; i++) {
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * canvas.height;
+            ctx.fillText(['❤️','💖','💘'][Math.floor(Math.random()*3)], x, y);
+        }
+    }
+    if (stickers.stars) {
+        ctx.fillStyle = '#ffffff';
+        for (let i = 0; i < 20; i++) {
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * canvas.height;
+            drawStar(ctx, x, y, 5, 6, 3);
+        }
+    }
+    if (stickers.fireworks) {
+        for (let i = 0; i < 6; i++) {
+            const cx = Math.random() * canvas.width;
+            const cy = Math.random() * (canvas.height/2);
+            drawFirework(ctx, cx, cy);
+        }
+    }
+}
+
+function drawStar(ctx, x, y, spikes, outerRadius, innerRadius) {
+    let rot = Math.PI / 2 * 3;
+    let cx = x;
+    let cy = y;
+    let step = Math.PI / spikes;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy - outerRadius);
+    for (let i=0; i<spikes; i++){
+        ctx.lineTo(cx + Math.cos(rot) * outerRadius, cy + Math.sin(rot) * outerRadius);
+        rot += step;
+        ctx.lineTo(cx + Math.cos(rot) * innerRadius, cy + Math.sin(rot) * innerRadius);
+        rot += step;
+    }
+    ctx.lineTo(cx, cy - outerRadius);
+    ctx.closePath();
+    ctx.fill();
+}
+
+function drawFirework(ctx, cx, cy) {
+    const colors = ['#ff6b6b','#ffd93d','#4ecdc4','#45b7d1'];
+    ctx.save();
+    for (let i=0;i<20;i++){
+        ctx.strokeStyle = colors[Math.floor(Math.random()*colors.length)];
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        const len = Math.random()*40+20;
+        const ang = (Math.PI*2/20)*i + Math.random()*0.2;
+        ctx.lineTo(cx + Math.cos(ang)*len, cy + Math.sin(ang)*len);
+        ctx.stroke();
+    }
+    ctx.restore();
+}
+
+// Confetti overlay
+function launchConfetti() {
+    const confettiCanvas = document.getElementById('confettiCanvas');
+    if (!confettiCanvas) return;
+    const baseCanvas = document.getElementById('flyerCanvas');
+    confettiCanvas.width = baseCanvas.width;
+    confettiCanvas.height = baseCanvas.height;
+    const ctx = confettiCanvas.getContext('2d');
+    confettiCanvas.classList.remove('hidden');
+
+    const colors = ['#ff6b6b','#ffd93d','#4ecdc4','#45b7d1','#a78bfa'];
+    const pieces = Array.from({length: 80}, () => ({
+        x: Math.random()*confettiCanvas.width,
+        y: -Math.random()*200,
+        w: 6, h: 12,
+        color: colors[Math.floor(Math.random()*colors.length)],
+        vy: Math.random()*3+2,
+        vx: Math.random()*1-0.5,
+        rot: Math.random()*Math.PI,
+        vr: Math.random()*0.1
+    }));
+    const start = performance.now();
+
+    function step(ts){
+        ctx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
+        pieces.forEach(p=>{
+            p.y += p.vy; p.x += p.vx; p.rot += p.vr;
+            ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot);
+            ctx.fillStyle = p.color; ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);
+            ctx.restore();
+        });
+        if (ts - start < 1500) {
+            requestAnimationFrame(step);
+        } else {
+            confettiCanvas.classList.add('hidden');
+            ctx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
+        }
+    }
+    requestAnimationFrame(step);
+}
+
 // Fonction pour découper le texte en lignes
 function wrapText(ctx, text, maxWidth) {
     const words = text.split(' ');
@@ -407,6 +589,13 @@ function regenerate() {
     document.getElementById('recipient').value = currentFlyer.recipient;
     document.getElementById('type').value = currentFlyer.type;
     document.getElementById('tone').value = currentFlyer.tone;
+    document.getElementById('theme').value = currentFlyer.theme;
+    document.getElementById('palette').value = currentFlyer.palette || 'parDefaut';
+    document.getElementById('fontStyle').value = currentFlyer.fontStyle || 'inter';
+    document.getElementById('quality').value = currentFlyer.quality || 'standard';
+    document.getElementById('stickers-hearts').checked = currentFlyer.stickers?.hearts || false;
+    document.getElementById('stickers-stars').checked = currentFlyer.stickers?.stars || false;
+    document.getElementById('stickers-fireworks').checked = currentFlyer.stickers?.fireworks || false;
     showGenerator();
 }
 
@@ -484,3 +673,25 @@ setTimeout(() => {
         });
     }
 }, 10000);
+
+// Image de fond personnalisée
+const bgInput = document.getElementById('bgImage');
+if (bgInput) {
+    bgInput.addEventListener('change', (e) => {
+        const file = e.target.files?.[0];
+        if (!file) { loadedBgImage = null; currentFlyer.bgImage = null; return; }
+        const reader = new FileReader();
+        reader.onload = () => {
+            const img = new Image();
+            img.onload = () => {
+                loadedBgImage = img;
+                currentFlyer.bgImage = img;
+                if (currentFlyer.message) {
+                    createFlyer(currentFlyer.message, currentFlyer.type, currentFlyer.recipient);
+                }
+            };
+            img.src = reader.result;
+        };
+        reader.readAsDataURL(file);
+    });
+}

@@ -3,15 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎉 Générateur de Cartes de Vœux 2025 - Gratuit & Personnalisé</title>
-    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-    <meta name="description" content="Crée gratuitement tes cartes de vœux 2025 personnalisées avec l'IA. Design pro en 30 secondes !">
-    <meta property="og:title" content="Générateur de Cartes de Vœux 2025">
-    <meta property="og:description" content="Crée ta carte personnalisée en 30 secondes !">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="style.css">
-    <!-- Adsterra Native Banner (Modal uniquement) -->
-    <script async="async" data-cfasync="false" src="https://pl28328297.effectivegatecpm.com/c2d6a3873c9ba719dc784ca5f48ba4bf/invoke.js"></script>
+        <title>🎉 Générateur de Cartes de Vœux 2025 - Gratuit & Personnalisé</title>
+        <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+        <meta name="description" content="Crée gratuitement tes cartes de vœux 2025 personnalisées avec l'IA. Design pro en 30 secondes !">
+        <meta property="og:title" content="Générateur de Cartes de Vœux 2025">
+        <meta property="og:description" content="Crée ta carte personnalisée en 30 secondes !">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Pacifico&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="manifest" href="manifest.json">
+        <script>
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('sw.js').catch(() => {});
+                });
+            }
+        </script>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="style.css">
+        <!-- Adsterra Native Banner (Modal uniquement) -->
+        <script async="async" data-cfasync="false" src="https://pl28328297.effectivegatecpm.com/c2d6a3873c9ba719dc784ca5f48ba4bf/invoke.js"></script>
 </head>
 <body class="bg-gradient-to-br from-purple-600 via-pink-500 to-red-500 min-h-screen">
     
@@ -38,6 +49,9 @@
             
             <p class="mt-6 text-sm opacity-75">
                 ⚡ Téléchargement gratuit après une courte publicité
+            </p>
+            <p class="mt-2 text-sm opacity-80">
+                🔗 Lien du site: <a href="https://aiflyers.netlify.app/" target="_blank" rel="noopener" class="underline font-semibold">https://aiflyers.netlify.app/</a>
             </p>
         </div>
         
@@ -105,6 +119,54 @@
                     </select>
                     <p class="text-xs text-gray-500 mt-1">Le design de la carte s'adaptera automatiquement</p>
                 </div>
+
+                <!-- Palette de couleurs -->
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Palette de couleurs</label>
+                    <select id="palette" class="w-full p-3 border-2 border-purple-200 rounded-lg focus:border-purple-500 outline-none">
+                        <option value="parDefaut">🎨 Par défaut (selon le type)</option>
+                        <option value="pastel">🧁 Pastel doux</option>
+                        <option value="or">💛 Or & Champagne</option>
+                        <option value="tropical">🌴 Tropical</option>
+                        <option value="minuit">🌌 Minuit</option>
+                    </select>
+                </div>
+
+                <!-- Police / Font -->
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Style de police</label>
+                    <select id="fontStyle" class="w-full p-3 border-2 border-purple-200 rounded-lg focus:border-purple-500 outline-none">
+                        <option value="inter">Sans (Inter)</option>
+                        <option value="merriweather">Serif (Merriweather)</option>
+                        <option value="pacifico">Script (Pacifico)</option>
+                    </select>
+                </div>
+
+                <!-- Stickers -->
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Stickers décoratifs</label>
+                    <div class="grid grid-cols-3 gap-2">
+                        <label class="flex items-center gap-2"><input type="checkbox" id="stickers-hearts"> ❤️ Cœurs</label>
+                        <label class="flex items-center gap-2"><input type="checkbox" id="stickers-stars"> ⭐ Étoiles</label>
+                        <label class="flex items-center gap-2"><input type="checkbox" id="stickers-fireworks"> 🎆 Feux d'artifice</label>
+                    </div>
+                </div>
+
+                <!-- Image de fond personnalisée -->
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Image de fond (optionnelle)</label>
+                    <input type="file" id="bgImage" accept="image/*" class="w-full p-3 border-2 border-purple-200 rounded-lg">
+                    <p class="text-xs text-gray-500 mt-1">Conseil: image verticale ou haute résolution</p>
+                </div>
+
+                <!-- Qualité du téléchargement -->
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Qualité du téléchargement</label>
+                    <select id="quality" class="w-full p-3 border-2 border-purple-200 rounded-lg focus:border-purple-500 outline-none">
+                        <option value="standard">📥 Standard (800 x 1000)</option>
+                        <option value="hd">📥 HD (1200 x 1500)</option>
+                    </select>
+                </div>
                 
                 <!-- Thème visuel -->
                 <div>
@@ -154,8 +216,9 @@
         <div class="max-w-3xl mx-auto">
             <h2 class="text-3xl font-bold text-white text-center mb-8">🎨 Ton flyer est prêt !</h2>
             
-            <div class="bg-white rounded-2xl shadow-2xl p-8 mb-6">
+            <div class="bg-white rounded-2xl shadow-2xl p-8 mb-6 relative">
                 <canvas id="flyerCanvas" width="800" height="1000" class="w-full border-4 border-purple-200 rounded-lg"></canvas>
+                <canvas id="confettiCanvas" width="800" height="1000" class="w-full absolute top-0 left-0 pointer-events-none hidden"></canvas>
             </div>
             
             <div class="flex gap-4">
