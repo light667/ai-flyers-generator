@@ -1,0 +1,13 @@
+{
+  "name": "ai-flyers",
+  "version": "1.0.0",
+  "description": "Générateur de cartes de vœux IA avec publicité",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python3 -m http.server 8000",
+    "deploy": "vercel --prod"
+  },
+  "keywords": ["flyers", "vœux", "ia", "générateur"],
+  "author": "",
+  "license": "MIT"
+}

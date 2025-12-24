@@ -1,0 +1,104 @@
+/* Animations et styles custom */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Amélioration du canvas */
+#flyerCanvas {
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+#flyerCanvas:hover {
+    transform: scale(1.02);
+}
+
+/* Animation du compteur */
+#counter {
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+/* Animation des cards d'exemples */
+.bg-white\/10:hover {
+    transform: translateY(-5px);
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Animation du loader */
+@keyframes pulse-glow {
+    0%, 100% { 
+        opacity: 1;
+        box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+    }
+    50% { 
+        opacity: 0.8;
+        box-shadow: 0 0 40px rgba(236, 72, 153, 0.7);
+    }
+}
+
+#loader .animate-spin {
+    animation: spin 1s linear infinite, pulse-glow 2s ease-in-out infinite;
+}
+
+/* Style pour les inputs focus */
+input:focus, select:focus, textarea:focus {
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+    transform: scale(1.01);
+    transition: all 0.2s ease;
+}
+
+/* Animation des boutons */
+button {
+    transition: all 0.3s ease;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    h1 {
+        font-size: 2rem !important;
+    }
+    
+    #flyerCanvas {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+/* Loading animation */
+@keyframes shimmer {
+    0% { background-position: -1000px 0; }
+    100% { background-position: 1000px 0; }
+}
+
+.loading-shimmer {
+    background: linear-gradient(to right, #f0f0f0 0%, #e0e0e0 50%, #f0f0f0 100%);
+    background-size: 1000px 100%;
+    animation: shimmer 2s infinite;
+}
+
+/* Animation d'apparition */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fadeInUp {
+    animation: fadeInUp 0.6s ease-out;
+}

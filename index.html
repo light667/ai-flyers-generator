@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎉 Générateur de Cartes de Vœux 2025 - Gratuit & Personnalisé</title>
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <meta name="description" content="Crée gratuitement tes cartes de vœux 2025 personnalisées avec l'IA. Design pro en 30 secondes !">
+    <meta property="og:title" content="Générateur de Cartes de Vœux 2025">
+    <meta property="og:description" content="Crée ta carte personnalisée en 30 secondes !">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-gradient-to-br from-purple-600 via-pink-500 to-red-500 min-h-screen">
+    
+    <!-- Landing Section -->
+    <div id="landingPage" class="container mx-auto px-4 py-8">
+        <div class="max-w-4xl mx-auto text-center text-white">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 animate-pulse">
+                🎉 Crée ta carte de vœux 2025 personnalisée en 30 secondes
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 opacity-90">
+                🤖 IA + 🎨 Design pro + ✨ 100% personnalisé = Cadeau unique !
+            </p>
+            
+            <div class="flex flex-wrap justify-center gap-4 mb-8">
+                <span class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm">✅ Gratuit</span>
+                <span class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm">⚡ Ultra rapide</span>
+                <span class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm">🎨 Design adapté</span>
+                <span class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm">📱 Mobile OK</span>
+            </div>
+            
+            <button onclick="showGenerator()" class="bg-white text-purple-600 px-8 py-4 rounded-full text-xl font-bold shadow-2xl hover:scale-110 transform transition-all duration-300">
+                Générer mon flyer 🎨
+            </button>
+            
+            <p class="mt-6 text-sm opacity-75">
+                ⚡ Téléchargement gratuit après une courte publicité
+            </p>
+        </div>
+        
+        <!-- Exemples visuels -->
+        <div class="grid md:grid-cols-4 gap-6 mt-16 max-w-6xl mx-auto">
+            <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl border-2 border-white/30">
+                <div class="text-6xl mb-4">🎊</div>
+                <h3 class="text-xl font-bold mb-2">Nouvel An</h3>
+                <p class="text-sm opacity-90">Messages festifs et chaleureux pour 2025</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl border-2 border-white/30">
+                <div class="text-6xl mb-4">🎄</div>
+                <h3 class="text-xl font-bold mb-2">Noël</h3>
+                <p class="text-sm opacity-90">Vœux de fin d'année personnalisés</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl border-2 border-white/30">
+                <div class="text-6xl mb-4">🎂</div>
+                <h3 class="text-xl font-bold mb-2">Anniversaire</h3>
+                <p class="text-sm opacity-90">Souhaits uniques pour cette journée spéciale</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm p-6 rounded-xl border-2 border-white/30">
+                <div class="text-6xl mb-4">💼</div>
+                <h3 class="text-xl font-bold mb-2">Professionnel</h3>
+                <p class="text-sm opacity-90">Messages élégants pour clients/collègues</p>
+            </div>
+        </div>
+        
+        <div class="text-center mt-12 text-white/70 text-sm">
+            <p>✨ Déjà <span id="counter" class="font-bold text-yellow-300">847</span> cartes générées aujourd'hui</p>
+        </div>
+    </div>
+    
+    <!-- Générateur -->
+    <div id="generatorPage" class="hidden container mx-auto px-4 py-8">
+        <div class="max-w-2xl mx-auto bg-white rounded-2xl shadow-2xl p-8">
+            <h2 class="text-3xl font-bold text-purple-600 mb-6">✨ Personnalise ton flyer</h2>
+            
+            <form id="flyerForm" class="space-y-6">
+                <!-- Type de vœu -->
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Type de vœu</label>
+                    <select id="type" class="w-full p-3 border-2 border-purple-200 rounded-lg focus:border-purple-500 outline-none">
+                        <option value="nouvel an">🎊 Nouvel An 2025</option>
+                        <option value="noel">🎄 Noël</option>
+                        <option value="anniversaire">🎂 Anniversaire</option>
+                        <option value="pro">💼 Professionnel</option>
+                        <option value="amour">❤️ Amour/Amitié</option>
+                    </select>
+                </div>
+                
+                <!-- Nom du destinataire -->
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Nom du destinataire</label>
+                    <input type="text" id="recipient" placeholder="Ex: Marie, Papa, L'équipe..." 
+                           class="w-full p-3 border-2 border-purple-200 rounded-lg focus:border-purple-500 outline-none">
+                </div>
+                
+                <!-- Ton -->
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Ton du message</label>
+                    <select id="tone" class="w-full p-3 border-2 border-purple-200 rounded-lg focus:border-purple-500 outline-none">
+                        <option value="fun">😄 Fun & Emojis</option>
+                        <option value="sérieux">🎩 Sérieux & Élégant</option>
+                        <option value="chaleureux">💝 Chaleureux</option>
+                    </select>
+                    <p class="text-xs text-gray-500 mt-1">Le design de la carte s'adaptera automatiquement</p>
+                </div>
+                
+                <!-- Thème visuel -->
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">🎨 Thème visuel</label>
+                    <select id="theme" class="w-full p-3 border-2 border-purple-200 rounded-lg focus:border-purple-500 outline-none">
+                        <option value="moderne">✨ Moderne (Dégradés & Ombres)</option>
+                        <option value="classique">🎭 Classique (Élégant & Sobre)</option>
+                        <option value="festif">🎉 Festif (Couleurs vives)</option>
+                        <option value="minimaliste">▫️ Minimaliste (Simplicité)</option>
+                        <option value="vintage">📷 Vintage (Rétro & Chaleureux)</option>
+                        <option value="neon">🌟 Néon (Flashy & Fun)</option>
+                    </select>
+                    <p class="text-xs text-gray-500 mt-1">Chaque thème donne un look unique à ta carte</p>
+                </div>
+                
+                <!-- Message personnalisé (optionnel) -->
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-2">Message personnalisé (optionnel)</label>
+                    <textarea id="customMessage" rows="3" placeholder="Laisse vide pour un message généré par l'IA..." 
+                              class="w-full p-3 border-2 border-purple-200 rounded-lg focus:border-purple-500 outline-none resize-none"></textarea>
+                    <p class="text-xs text-gray-500 mt-1">Tu peux écrire ton propre message ou laisser l'IA le faire</p>
+                </div>
+                
+                <!-- Boutons -->
+                <div class="flex gap-4">
+                    <button type="button" onclick="showLanding()" 
+                            class="flex-1 bg-gray-300 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-400">
+                        ← Retour
+                    </button>
+                    <button type="submit" 
+                            class="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all">
+                        Générer 🚀
+                    </button>
+                </div>
+            </form>
+            
+            <!-- Loader -->
+            <div id="loader" class="hidden text-center py-8">
+                <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-purple-500 border-t-transparent"></div>
+                <p class="mt-4 text-gray-600">Création de ton flyer magique... ✨</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Prévisualisation du flyer -->
+    <div id="previewPage" class="hidden container mx-auto px-4 py-8">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-3xl font-bold text-white text-center mb-8">🎨 Ton flyer est prêt !</h2>
+            
+            <div class="bg-white rounded-2xl shadow-2xl p-8 mb-6">
+                <canvas id="flyerCanvas" width="800" height="1000" class="w-full border-4 border-purple-200 rounded-lg"></canvas>
+            </div>
+            
+            <div class="flex gap-4">
+                <button onclick="regenerate()" 
+                        class="flex-1 bg-white text-purple-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100">
+                    🔄 Régénérer
+                </button>
+                <button onclick="showAdAndDownload()" 
+                        class="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all">
+                    📥 Télécharger
+                </button>
+            </div>
+            
+            <button onclick="shareOnWhatsApp()" 
+                    class="w-full mt-4 bg-gradient-to-r from-green-600 to-green-500 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all flex items-center justify-center gap-2">
+                <span class="text-2xl">💬</span>
+                Partager sur WhatsApp
+            </button>
+            
+            <p class="text-center text-white/70 text-sm mt-4">
+                ⚡ Une courte pub de 10 secondes, puis ton téléchargement démarre
+            </p>
+        </div>
+    </div>
+    
+    <!-- Modal Publicité -->
+    <div id="adModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-8 text-center relative">
+            <div class="text-6xl mb-4">🎁</div>
+            <h3 class="text-2xl font-bold mb-4">Merci de patienter !</h3>
+            <p class="text-gray-600 mb-6">Ton téléchargement commence dans <span id="countdown" class="text-3xl font-bold text-purple-600">10</span> secondes...</p>
+            
+            <!-- Zone pub personnalisable -->
+            <div class="bg-gradient-to-r from-blue-500 to-cyan-500 p-6 rounded-xl text-white mb-6">
+                <p class="font-bold text-lg mb-2">🚀 Envie de créer ton propre site ?</p>
+                <p class="text-sm mb-4">Contacte-nous sur WhatsApp pour tes projets web !</p>
+                <a href="https://wa.me/237xxxxxxxxx" target="_blank" 
+                   class="inline-block bg-white text-blue-600 px-6 py-2 rounded-full font-semibold hover:bg-gray-100">
+                    💬 WhatsApp
+                </a>
+            </div>
+            
+            <div class="h-1 bg-gray-200 rounded-full overflow-hidden">
+                <div id="progressBar" class="h-full bg-purple-600 transition-all duration-1000" style="width: 0%"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
