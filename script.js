@@ -463,3 +463,24 @@ function closeAdBar() {
     adBar.classList.add('hidden');
     document.body.style.paddingBottom = '0';
 }
+
+// Auto-cacher la barre de pub après 10 secondes (moins intrusif)
+setTimeout(() => {
+    const adBar = document.getElementById('sticky-ad-bar');
+    if (adBar && !adBar.classList.contains('hidden')) {
+        adBar.style.opacity = '0.7';
+        adBar.style.transform = 'translateY(60%)';
+        adBar.style.transition = 'all 0.3s ease';
+        
+        // Afficher complètement au hover
+        adBar.addEventListener('mouseenter', () => {
+            adBar.style.opacity = '1';
+            adBar.style.transform = 'translateY(0)';
+        });
+        
+        adBar.addEventListener('mouseleave', () => {
+            adBar.style.opacity = '0.7';
+            adBar.style.transform = 'translateY(60%)';
+        });
+    }
+}, 10000);
