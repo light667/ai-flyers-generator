@@ -10,6 +10,10 @@
     <meta property="og:description" content="Crée ta carte personnalisée en 30 secondes !">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
+    <!-- Adsterra Native Banner -->
+    <script async="async" data-cfasync="false" src="https://pl28328297.effectivegatecpm.com/c2d6a3873c9ba719dc784ca5f48ba4bf/invoke.js"></script>
+    <!-- Adsterra Popunder -->
+    <script src="https://pl28328299.effectivegatecpm.com/c7/11/52/c71152ce7f985909d62aa01b0c737864.js"></script>
 </head>
 <body class="bg-gradient-to-br from-purple-600 via-pink-500 to-red-500 min-h-screen">
     
@@ -186,18 +190,33 @@
             <h3 class="text-2xl font-bold mb-4">Merci de patienter !</h3>
             <p class="text-gray-600 mb-6">Ton téléchargement commence dans <span id="countdown" class="text-3xl font-bold text-purple-600">10</span> secondes...</p>
             
-            <!-- Zone pub personnalisable -->
-            <div class="bg-gradient-to-r from-blue-500 to-cyan-500 p-6 rounded-xl text-white mb-6">
-                <p class="font-bold text-lg mb-2">🚀 Envie de créer ton propre site ?</p>
-                <p class="text-sm mb-4">Contacte-nous sur WhatsApp pour tes projets web !</p>
-                <a href="https://wa.me/237xxxxxxxxx" target="_blank" 
-                   class="inline-block bg-white text-blue-600 px-6 py-2 rounded-full font-semibold hover:bg-gray-100">
-                    💬 WhatsApp
-                </a>
+            <!-- Zone pub Adsterra Native Banner -->
+            <div id="container-c2d6a3873c9ba719dc784ca5f48ba4bf" class="mb-6 min-h-[200px] flex items-center justify-center">
+                <p class="text-gray-400 text-sm">Chargement de la publicité...</p>
             </div>
             
             <div class="h-1 bg-gray-200 rounded-full overflow-hidden">
                 <div id="progressBar" class="h-full bg-purple-600 transition-all duration-1000" style="width: 0%"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Barre de publicité permanente en bas -->
+    <div id="sticky-ad-bar" class="fixed bottom-0 left-0 right-0 bg-white shadow-2xl border-t-2 border-purple-200 z-40">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex items-center justify-between">
+                <div class="flex-1 flex justify-center">
+                    <!-- Zone pub permanente Adsterra -->
+                    <div id="container-permanent-ad" class="w-full max-w-4xl">
+                        <!-- La pub Adsterra s'affichera ici -->
+                        <div class="bg-gradient-to-r from-purple-100 to-pink-100 p-4 rounded-lg text-center">
+                            <p class="text-sm text-gray-600">🎉 <span class="font-semibold">Espace publicitaire</span> - Soutenez le site gratuit</p>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="closeAdBar()" class="ml-3 text-gray-400 hover:text-gray-600 text-2xl font-bold">
+                    ×
+                </button>
             </div>
         </div>
     </div>

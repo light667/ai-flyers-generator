@@ -456,3 +456,10 @@ function shareOnWhatsApp() {
     const encodedText = encodeURIComponent(shareText);
     window.open(`https://wa.me/?text=${encodedText}`, '_blank');
 }
+
+// Fermer la barre de pub permanente
+function closeAdBar() {
+    const adBar = document.getElementById('sticky-ad-bar');
+    adBar.classList.add('hidden');
+    document.body.style.paddingBottom = '0';
+}
