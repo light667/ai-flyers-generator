@@ -1,4 +1,4 @@
-# 🎉 Générateur de Cartes de Vœux 2025
+# 🎉 Générateur de Cartes de Vœux 2026
 
 Générateur de flyers et cartes de vœux personnalisés avec IA.
 
@@ -54,7 +54,7 @@ Pour utiliser l'IA OpenAI, ajouter votre clé API dans le formulaire ou modifier
 ## 📱 Partage WhatsApp
 
 Message prêt à envoyer :
-> 🎉 J'ai créé un site qui génère gratuitement des cartes de vœux 2025 personnalisées
+> 🎉 J'ai créé un site qui génère gratuitement des cartes de vœux 2026 personnalisées
 > 📲 Tu mets ton nom, tu choisis le style, et tu télécharges
 > 👉 [VOTRE_LIEN]
 > (partage si tu aimes 🙏)

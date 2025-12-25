@@ -29,7 +29,7 @@ export default async function handler(req, res) {
     if (type === 'anniversaire') {
       context = 'pour célébrer son anniversaire';
     } else if (type === 'nouvel an') {
-      context = 'pour souhaiter une bonne année 2025';
+      context = 'pour souhaiter une bonne année 2026';
     } else if (type === 'noel') {
       context = 'pour souhaiter un joyeux Noël';
     } else if (type === 'pro') {

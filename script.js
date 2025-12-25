@@ -69,9 +69,9 @@ async function generateMessage(type, recipient, tone) {
 function getPreGeneratedMessage(type, recipient, tone) {
     const messages = {
         'nouvel an': {
-            'fun': `Coucou ${recipient} ! 🎊✨\n\nQue 2025 t'apporte plein de bonheur, de réussite et de moments de folie ! Que cette nouvelle année soit remplie de rires, d'aventures incroyables et de projets qui déchirent ! 🚀🎉\n\nGros bisous et bonne année ! 🥳💖`,
-            'sérieux': `Cher(e) ${recipient},\n\nEn cette nouvelle année 2025, je vous adresse mes meilleurs vœux de santé, de prospérité et de succès. Que cette année vous apporte satisfaction dans tous vos projets et moments précieux avec vos proches.\n\nMeilleurs vœux pour 2025.`,
-            'chaleureux': `Mon cher ${recipient} 💝,\n\nJe te souhaite une merveilleuse année 2025 pleine de bonheur, de santé et de réussite. Que chaque jour t'apporte de belles surprises et que tes rêves deviennent réalité.\n\nAvec toute mon affection ! 🌟`
+            'fun': `Coucou ${recipient} ! 🎊✨\n\nQue 2026 t'apporte plein de bonheur, de réussite et de moments de folie ! Que cette nouvelle année soit remplie de rires, d'aventures incroyables et de projets qui déchirent ! 🚀🎉\n\nGros bisous et bonne année ! 🥳💖`,
+            'sérieux': `Cher(e) ${recipient},\n\nEn cette nouvelle année 2026, je vous adresse mes meilleurs vœux de santé, de prospérité et de succès. Que cette année vous apporte satisfaction dans tous vos projets et moments précieux avec vos proches.\n\nMeilleurs vœux pour 2026.`,
+            'chaleureux': `Mon cher ${recipient} 💝,\n\nJe te souhaite une merveilleuse année 2026 pleine de bonheur, de santé et de réussite. Que chaque jour t'apporte de belles surprises et que tes rêves deviennent réalité.\n\nAvec toute mon affection ! 🌟`
         },
         'noel': {
             'fun': `Hey ${recipient} ! 🎄🎅\n\nJoyeux Noël à toi ! Que le Père Noël te gâte comme jamais et que cette période soit magique ! Profite bien des fêtes, des bons plats et des moments en famille ! 🎁✨\n\nHo Ho Ho ! 🦌🔔`,
@@ -84,18 +84,18 @@ function getPreGeneratedMessage(type, recipient, tone) {
             'chaleureux': `Joyeux anniversaire mon cher ${recipient} ! 🎂💖\n\nAujourd'hui, on célèbre ta présence dans nos vies ! Que cette journée soit remplie de joie, d'amour et de moments magiques. Tu es quelqu'un de spécial et tu mérites le meilleur !\n\nGros bisous et plein de bonheur ! 🎉✨`
         },
         'pro': {
-            'fun': `Salut ${recipient} ! 💼🚀\n\nMerci pour cette super collaboration ! Que 2025 nous apporte encore plus de succès et de projets extraordinaires ensemble !\n\nBelle année à toute l'équipe ! 🎊`,
-            'sérieux': `Cher(e) ${recipient},\n\nJe vous présente mes meilleurs vœux professionnels pour l'année 2025. Que cette nouvelle année soit synonyme de réussite, d'innovation et de croissance pour vous et votre entreprise.\n\nCordialement.`,
-            'chaleureux': `Cher(e) ${recipient},\n\nMerci pour votre précieuse collaboration. Je vous souhaite une excellente année 2025 remplie de belles réussites professionnelles et personnelles.\n\nBien cordialement. 🌟`
+            'fun': `Salut ${recipient} ! 💼🚀\n\nMerci pour cette super collaboration ! Que 2026 nous apporte encore plus de succès et de projets extraordinaires ensemble !\n\nBelle année à toute l'équipe ! 🎊`,
+            'sérieux': `Cher(e) ${recipient},\n\nJe vous présente mes meilleurs vœux professionnels pour l'année 2026. Que cette nouvelle année soit synonyme de réussite, d'innovation et de croissance pour vous et votre entreprise.\n\nCordialement.`,
+            'chaleureux': `Cher(e) ${recipient},\n\nMerci pour votre précieuse collaboration. Je vous souhaite une excellente année 2026 remplie de belles réussites professionnelles et personnelles.\n\nBien cordialement. 🌟`
         },
         'amour': {
-            'fun': `Mon ${recipient} adoré ! 💕😍\n\nTu es ma personne préférée et je veux que 2025 soit notre meilleure année ! Plein d'amour, de fous rires et d'aventures ensemble !\n\nJe t'aime fort ! 💖🎊`,
-            'sérieux': `Mon cher ${recipient},\n\nEn cette nouvelle année, je te renouvelle tout mon amour et mon engagement. Que 2025 renforce encore nos liens et nous apporte sérénité et bonheur partagé.\n\nAvec tout mon amour.`,
-            'chaleureux': `Mon tendre ${recipient} 💝,\n\nJe te souhaite une merveilleuse année 2025 à mes côtés. Que notre amour grandisse chaque jour et que nous vivions mille et une belles choses ensemble.\n\nJe t'aime infiniment ! 💖✨`
+            'fun': `Mon ${recipient} adoré ! 💕😍\n\nTu es ma personne préférée et je veux que 2026 soit notre meilleure année ! Plein d'amour, de fous rires et d'aventures ensemble !\n\nJe t'aime fort ! 💖🎊`,
+            'sérieux': `Mon cher ${recipient},\n\nEn cette nouvelle année, je te renouvelle tout mon amour et mon engagement. Que 2026 renforce encore nos liens et nous apporte sérénité et bonheur partagé.\n\nAvec tout mon amour.`,
+            'chaleureux': `Mon tendre ${recipient} 💝,\n\nJe te souhaite une merveilleuse année 2026 à mes côtés. Que notre amour grandisse chaque jour et que nous vivions mille et une belles choses ensemble.\n\nJe t'aime infiniment ! 💖✨`
         }
     };
 
-    return messages[type]?.[tone] || `Cher(e) ${recipient},\n\nJe te souhaite une excellente année 2025 remplie de bonheur et de réussite !\n\nBien à toi.`;
+    return messages[type]?.[tone] || `Cher(e) ${recipient},\n\nJe te souhaite une excellente année 2026 remplie de bonheur et de réussite !\n\nBien à toi.`;
 }
 
 // Gestion du formulaire
@@ -167,7 +167,7 @@ async function createFlyer(message, type, recipient) {
             emoji: '🎊',
             decorEmojis: ['🎉', '🎆', '✨', '🥳', '🍾'],
             pattern: 'confetti',
-            title: '✨ BONNE ANNÉE 2025 ✨'
+            title: '✨ BONNE ANNÉE 2026 ✨'
         },
         'noel': { 
             gradient: ['#c92a2a', '#2f9e44', '#ffd700'], 
@@ -628,7 +628,7 @@ function showAdAndDownload() {
 function downloadFlyer() {
     const canvas = document.getElementById('flyerCanvas');
     const link = document.createElement('a');
-    const filename = `voeux-2025-${currentFlyer.recipient.toLowerCase().replace(/\s+/g, '-')}.png`;
+    const filename = `voeux-2026-${currentFlyer.recipient.toLowerCase().replace(/\s+/g, '-')}.png`;
     
     link.download = filename;
     link.href = canvas.toDataURL('image/png');
@@ -641,7 +641,7 @@ function downloadFlyer() {
 
 // Partager sur WhatsApp
 function shareOnWhatsApp() {
-    const shareText = `🎉 Regarde la superbe carte ${currentFlyer.type} que j'ai créée avec l'IA !\n\n✨ Crée la tienne gratuitement sur : ${window.location.origin}\n\n#Vœux2025 #CartePersonnalisée`;
+    const shareText = `🎉 Regarde la superbe carte ${currentFlyer.type} que j'ai créée avec l'IA !\n\n✨ Crée la tienne gratuitement sur : ${window.location.origin}\n\n#Vœux2026 #CartePersonnalisée`;
     const encodedText = encodeURIComponent(shareText);
     window.open(`https://wa.me/?text=${encodedText}`, '_blank');
 }

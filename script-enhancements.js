@@ -1,0 +1,89 @@
+// Fonctions de partage social pour viralité
+
+// Partager sur Facebook
+function shareOnFacebook() {
+    const shareUrl = encodeURIComponent(window.location.origin);
+    const shareText = encodeURIComponent(`🎉 J'ai créé ma carte ${currentFlyer.type} personnalisée avec l'IA ! Essaie gratuitement :`);
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&quote=${shareText}`, '_blank', 'width=600,height=400');
+}
+
+// Partager sur Twitter
+function shareOnTwitter() {
+    const shareText = encodeURIComponent(`🎨 J'ai créé une superbe carte ${currentFlyer.type} avec l'IA!\n\n✨ Gratuit et ultra rapide\n👉 ${window.location.origin}\n\n#AI #CartePersonnalisée #Vœux2026`);
+    window.open(`https://twitter.com/intent/tweet?text=${shareText}`, '_blank', 'width=600,height=400');
+}
+
+// Partager sur Instagram (copie le lien)
+function shareOnInstagram() {
+    const shareText = `🎉 Crée ta carte ${currentFlyer.type} personnalisée avec l'IA!\n👉 ${window.location.origin}`;
+    
+    // Copier le lien dans le presse-papiers
+    navigator.clipboard.writeText(shareText).then(() => {
+        alert('✅ Lien copié! Colle-le dans ta story Instagram 📸\n\n' + shareText);
+    }).catch(() => {
+        alert(`📸 Partage sur Instagram:\n\n${shareText}\n\n(Copie ce message manuellement)`);
+    });
+}
+
+// Nouveaux backgrounds pour les types ajoutés
+const newBackgrounds = {
+    'saint-valentin': {
+        gradient: ['#ff1744', '#ff4081', '#f50057'],
+        emoji: '💖',
+        decorEmojis: ['💕', '💘', '💞', '🌹', '💋'],
+        pattern: 'hearts',
+        title: '💖 JOYEUSE SAINT-VALENTIN 💖'
+    },
+    'fete-meres': {
+        gradient: ['#ec407a', '#f48fb1', '#fce4ec'],
+        emoji: '🌸',
+        decorEmojis: ['🌺', '🌼', '🌷', '💐', '❤️'],
+        pattern: 'hearts',
+        title: '🌸 BONNE FÊTE MAMAN 🌸'
+    },
+    'fete-peres': {
+        gradient: ['#1976d2', '#42a5f5', '#90caf9'],
+        emoji: '👨',
+        decorEmojis: ['🏆', '⭐', '👊', '🚀', '🏅'],
+        pattern: 'minimal',
+        title: '👨 BONNE FÊTE PAPA 👨'
+    },
+    'mariage': {
+        gradient: ['#ffffff', '#fce4ec', '#f8bbd0'],
+        emoji: '💍',
+        decorEmojis: ['💖', '🤵', '🤷', '🎉', '✨'],
+        pattern: 'hearts',
+        title: '💍 FÉLICITATIONS 💍'
+    },
+    'naissance': {
+        gradient: ['#81c784', '#aed581', '#ffeb3b'],
+        emoji: '👶',
+        decorEmojis: ['🎈', '⭐', '🎀', '💛', '🌼'],
+        pattern: 'balloons',
+        title: '👶 BIENVENUE BÉBÉ 👶'
+    },
+    'diplome': {
+        gradient: ['#0d47a1', '#1976d2', '#ffd700'],
+        emoji: '🎓',
+        decorEmojis: ['🏆', '⭐', '📚', '🏅', '🎉'],
+        pattern: 'minimal',
+        title: '🎓 FÉLICITATIONS 🎓'
+    },
+    'retraite': {
+        gradient: ['#ff6f00', '#ff9100', '#ffc107'],
+        emoji: '🎉',
+        decorEmojis: ['🎈', '✨', '🎆', '🍾', '🏆'],
+        pattern: 'confetti',
+        title: '🎉 BONNE RETRAITE 🎉'
+    },
+    'merci': {
+        gradient: ['#7cb342', '#9ccc65', '#fff9c4'],
+        emoji: '🙏',
+        decorEmojis: ['💚', '✨', '🌼', '⭐', '💖'],
+        pattern: 'hearts',
+        title: '🙏 MERCI BEAUCOUP 🙏'
+    }
+};
+
+// Ajouter à la fin du fichier script.js existant
+console.log('✅ Nouveaux types et partage social activés!');
