@@ -21,6 +21,7 @@
         </script>
         <script src="https://cdn.tailwindcss.com"></script>
         <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="envelope-animation.css">
     
     <!-- Adsterra Scripts - Optimisés pour UX -->
     <script src="https://pl28328446.effectivegatecpm.com/9b/9f/de/9b9fdecfe956e26ab7443cc13b99c2bd.js"></script>
@@ -152,6 +153,45 @@
                            class="w-full p-3 border-2 border-purple-200 rounded-lg focus:border-purple-500 outline-none">
                 </div>
                 
+                <!-- Signature (optionnelle) -->
+                <div class="bg-purple-50 p-4 rounded-lg border-2 border-purple-100">
+                    <label class="flex items-center gap-2 mb-3">
+                        <input type="checkbox" id="addSignature" class="w-4 h-4">
+                        <span class="text-gray-700 font-semibold">✍️ Ajouter ma signature</span>
+                    </label>
+                    
+                    <div id="signatureFields" class="space-y-3 hidden">
+                        <div>
+                            <label class="block text-gray-700 text-sm font-semibold mb-1">Ton nom</label>
+                            <input type="text" id="senderName" placeholder="Ex: Julie, Marc, La famille Dupont..." 
+                                   class="w-full p-2 border-2 border-purple-200 rounded-lg focus:border-purple-500 outline-none text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 text-sm font-semibold mb-1">Ta relation</label>
+                            <select id="senderRelation" class="w-full p-2 border-2 border-purple-200 rounded-lg focus:border-purple-500 outline-none text-sm">
+                                <option value="">Personnalisé (écris ci-dessous)</option>
+                                <option value="Ton ami(e)">Ton ami(e)</option>
+                                <option value="Ton meilleur(e) ami(e)">Ton meilleur(e) ami(e)</option>
+                                <option value="Ton fils">Ton fils</option>
+                                <option value="Ta fille">Ta fille</option>
+                                <option value="Ton frère">Ton frère</option>
+                                <option value="Ta sœur">Ta sœur</option>
+                                <option value="Ton papa">Ton papa</option>
+                                <option value="Ta maman">Ta maman</option>
+                                <option value="Tes enfants">Tes enfants</option>
+                                <option value="Ta famille">Ta famille</option>
+                                <option value="Ton collègue">Ton collègue</option>
+                                <option value="Ton équipe">Ton équipe</option>
+                                <option value="Ton chéri">Ton chéri</option>
+                                <option value="Ta chérie">Ta chérie</option>
+                                <option value="Celui/Celle qui t'aime">Celui/Celle qui t'aime</option>
+                            </select>
+                            <input type="text" id="customRelation" placeholder="Ou écris ta propre relation..." 
+                                   class="w-full p-2 border-2 border-purple-200 rounded-lg focus:border-purple-500 outline-none text-sm mt-2 hidden">
+                        </div>
+                    </div>
+                </div>
+                
                 <!-- Ton -->
                 <div>
                     <label class="block text-gray-700 font-semibold mb-2">Ton du message</label>
@@ -230,7 +270,7 @@
                     <label class="block text-gray-700 font-semibold mb-2">Message personnalisé (optionnel)</label>
                     <textarea id="customMessage" rows="3" placeholder="Laisse vide pour un message généré par l'IA..." 
                               class="w-full p-3 border-2 border-purple-200 rounded-lg focus:border-purple-500 outline-none resize-none"></textarea>
-                    <p class="text-xs text-gray-500 mt-1">Tu peux écrire ton propre message ou laisser l'IA le faire</p>
+                    <p class="text-xs text-gray-500 mt-1">Laisse vide pour laisser l'IA créer un message unique</p>
                 </div>
                 
                 <!-- Boutons -->
@@ -351,5 +391,21 @@
     
     <script src="script.js"></script>
     <script src="templates.js"></script>
+    <script src="script-enhancements.js"></script>
+    <script src="envelope-animation.js"></script>
+    
+    <script>
+        // Toggle des champs de signature
+        document.getElementById('addSignature').addEventListener('change', (e) => {
+            const fields = document.getElementById('signatureFields');
+            fields.classList.toggle('hidden', !e.target.checked);
+        });
+        
+        // Toggle input personnalisé pour la relation
+        document.getElementById('senderRelation').addEventListener('change', (e) => {
+            const customInput = document.getElementById('customRelation');
+            customInput.classList.toggle('hidden', e.target.value !== '');
+        });
+    </script>
 </body>
 </html>

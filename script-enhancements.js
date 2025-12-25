@@ -1,21 +1,48 @@
 // Fonctions de partage social pour viralité
 
+// Générer l'URL avec les données de la carte
+function generateShareUrl() {
+    const params = new URLSearchParams({
+        shared: '1',
+        type: currentFlyer.type,
+        recipient: currentFlyer.recipient,
+        tone: currentFlyer.tone,
+        theme: currentFlyer.theme || 'moderne',
+        palette: currentFlyer.palette || 'parDefaut',
+        fontStyle: currentFlyer.fontStyle || 'inter',
+        message: currentFlyer.message || ''
+    });
+    
+    // Ajouter la signature si présente
+    if (currentFlyer.signature && currentFlyer.signature.enabled && currentFlyer.signature.senderName) {
+        params.append('signatureEnabled', '1');
+        params.append('senderName', currentFlyer.signature.senderName);
+        if (currentFlyer.signature.relation) {
+            params.append('senderRelation', currentFlyer.signature.relation);
+        }
+    }
+    
+    return `${window.location.origin}?${params.toString()}`;
+}
+
 // Partager sur Facebook
 function shareOnFacebook() {
-    const shareUrl = encodeURIComponent(window.location.origin);
-    const shareText = encodeURIComponent(`🎉 J'ai créé ma carte ${currentFlyer.type} personnalisée avec l'IA ! Essaie gratuitement :`);
+    const shareUrl = encodeURIComponent(generateShareUrl());
+    const shareText = encodeURIComponent(`🎉 J'ai créé ma carte ${currentFlyer.type} personnalisée avec l'IA ! Regarde :`);
     window.open(`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&quote=${shareText}`, '_blank', 'width=600,height=400');
 }
 
 // Partager sur Twitter
 function shareOnTwitter() {
-    const shareText = encodeURIComponent(`🎨 J'ai créé une superbe carte ${currentFlyer.type} avec l'IA!\n\n✨ Gratuit et ultra rapide\n👉 ${window.location.origin}\n\n#AI #CartePersonnalisée #Vœux2026`);
+    const shareUrl = generateShareUrl();
+    const shareText = encodeURIComponent(`🎨 J'ai créé une superbe carte ${currentFlyer.type} avec l'IA!\n\n✨ Regarde-la ici:\n👉 ${shareUrl}\n\n#AI #CartePersonnalisée #Vœux2026`);
     window.open(`https://twitter.com/intent/tweet?text=${shareText}`, '_blank', 'width=600,height=400');
 }
 
 // Partager sur Instagram (copie le lien)
 function shareOnInstagram() {
-    const shareText = `🎉 Crée ta carte ${currentFlyer.type} personnalisée avec l'IA!\n👉 ${window.location.origin}`;
+    const shareUrl = generateShareUrl();
+    const shareText = `🎉 Regarde ma carte ${currentFlyer.type} personnalisée!\n👉 ${shareUrl}`;
     
     // Copier le lien dans le presse-papiers
     navigator.clipboard.writeText(shareText).then(() => {

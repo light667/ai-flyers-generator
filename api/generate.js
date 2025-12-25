@@ -26,17 +26,23 @@ export default async function handler(req, res) {
 
     // Adapter le prompt selon le type
     let context = '';
-    if (type === 'anniversaire') {
-      context = 'pour célébrer son anniversaire';
-    } else if (type === 'nouvel an') {
-      context = 'pour souhaiter une bonne année 2026';
-    } else if (type === 'noel') {
-      context = 'pour souhaiter un joyeux Noël';
-    } else if (type === 'pro') {
-      context = 'dans un contexte professionnel';
-    } else if (type === 'amour') {
-      context = 'pour exprimer ton amour ou ton amitié';
-    }
+    const contextMap = {
+      'anniversaire': 'pour célébrer son anniversaire',
+      'nouvel an': 'pour souhaiter une bonne année 2026',
+      'noel': 'pour souhaiter un joyeux Noël',
+      'pro': 'dans un contexte professionnel pour l\'année 2026',
+      'amour': 'pour exprimer ton amour ou ton amitié',
+      'saint-valentin': 'pour la Saint-Valentin, avec passion et romantisme',
+      'fete-meres': 'pour la fête des Mères, avec tendresse et gratitude',
+      'fete-peres': 'pour la fête des Pères, avec reconnaissance et affection',
+      'mariage': 'pour féliciter des mariés et leur souhaiter le bonheur',
+      'naissance': 'pour féliciter pour une naissance et accueillir le bébé',
+      'diplome': 'pour féliciter pour un diplôme ou une réussite scolaire',
+      'retraite': 'pour féliciter pour un départ en retraite bien mérité',
+      'merci': 'pour remercier sincèrement quelqu\'un'
+    };
+    
+    context = contextMap[type] || 'pour cette occasion spéciale';
 
     const prompt = `Tu es un expert en rédaction de messages de vœux africains francophones.
 Génère un message court (max 150 mots), chaleureux et festif ${context} pour :

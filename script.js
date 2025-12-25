@@ -9,7 +9,12 @@ let currentFlyer = {
     quality: 'standard',
     stickers: { hearts: false, stars: false, fireworks: false },
     bgImage: null,
-    message: ''
+    message: '',
+    signature: {
+        enabled: false,
+        senderName: '',
+        relation: ''
+    }
 };
 let loadedBgImage = null;
 
@@ -36,8 +41,56 @@ function showPreview() {
 let counter = 847;
 setInterval(() => {
     counter += Math.floor(Math.random() * 3);
-    document.getElementById('counter').textContent = counter;
+    const counterEl = document.getElementById('counter');
+    if (counterEl) counterEl.textContent = counter;
 }, 5000);
+
+// DÉTECTION DE CARTE PARTAGÉE AU CHARGEMENT
+window.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    
+    // Vérifier si c'est un lien partagé
+    if (urlParams.get('shared') === '1') {
+        // Extraire les données de la carte
+        const cardData = {
+            type: urlParams.get('type') || 'nouvel an',
+            recipient: urlParams.get('recipient') || 'Toi',
+            tone: urlParams.get('tone') || 'chaleureux',
+            theme: urlParams.get('theme') || 'moderne',
+            palette: urlParams.get('palette') || 'parDefaut',
+            fontStyle: urlParams.get('fontStyle') || 'inter',
+            message: urlParams.get('message') || '',
+            signature: {
+                enabled: urlParams.get('signatureEnabled') === '1',
+                senderName: urlParams.get('senderName') || '',
+                relation: urlParams.get('senderRelation') || ''
+            }
+        };
+        
+        // Mettre à jour currentFlyer
+        currentFlyer = {
+            ...currentFlyer,
+            ...cardData
+        };
+        
+        // Générer la carte en arrière-plan
+        setTimeout(async () => {
+            const message = cardData.message || await generateMessage(cardData.type, cardData.recipient, cardData.tone);
+            currentFlyer.message = message;
+            
+            // Créer la carte
+            await createFlyer(message, cardData.type, cardData.recipient);
+            
+            // Afficher la page de prévisualisation (cachée sous l'animation)
+            showPreview();
+            
+            // Déclencher l'animation d'enveloppe
+            setTimeout(() => {
+                showEnvelopeAnimation(null, null, true); // Mode réception
+            }, 500);
+        }, 100);
+    }
+});
 
 // Génération du message IA
 async function generateMessage(type, recipient, tone) {
@@ -92,10 +145,50 @@ function getPreGeneratedMessage(type, recipient, tone) {
             'fun': `Mon ${recipient} adoré ! 💕😍\n\nTu es ma personne préférée et je veux que 2026 soit notre meilleure année ! Plein d'amour, de fous rires et d'aventures ensemble !\n\nJe t'aime fort ! 💖🎊`,
             'sérieux': `Mon cher ${recipient},\n\nEn cette nouvelle année, je te renouvelle tout mon amour et mon engagement. Que 2026 renforce encore nos liens et nous apporte sérénité et bonheur partagé.\n\nAvec tout mon amour.`,
             'chaleureux': `Mon tendre ${recipient} 💝,\n\nJe te souhaite une merveilleuse année 2026 à mes côtés. Que notre amour grandisse chaque jour et que nous vivions mille et une belles choses ensemble.\n\nJe t'aime infiniment ! 💖✨`
+        },
+        'saint-valentin': {
+            'fun': `Mon ${recipient} d'amour ! 💖😘\n\nJoyeuse Saint-Valentin ! Tu fais battre mon cœur comme jamais ! T'es mon crush, ma vie, mon tout ! Cette journée est spéciale parce que tu es spécial(e) !\n\nJe t'aime à la folie ! 💕💋✨`,
+            'sérieux': `Mon cher ${recipient},\n\nEn cette Saint-Valentin, je tiens à te dire combien tu comptes pour moi. Tu es la personne qui illumine mes journées et donne du sens à ma vie.\n\nAvec tout mon amour. 💝`,
+            'chaleureux': `Mon tendre ${recipient} 💖,\n\nJoyeuse Saint-Valentin mon amour ! Chaque jour à tes côtés est un cadeau. Tu es la meilleure chose qui me soit arrivée. Je t'aime plus que les mots ne peuvent le dire.\n\nÀ jamais tien/tienne ! 💘✨`
+        },
+        'fete-meres': {
+            'fun': `Maman ${recipient} ! 🌸💖\n\nBonne fête des Mères ! T'es la meilleure maman du monde ! Merci pour tous les câlins, les encouragements et ton amour inconditionnel ! Tu gères grave !\n\nJe t'aime fort ! 💐🥰`,
+            'sérieux': `Chère ${recipient},\n\nEn cette fête des Mères, je tiens à vous exprimer toute ma gratitude et mon affection. Vous êtes une mère exemplaire et je vous en suis infiniment reconnaissant(e).\n\nBonne fête Maman. 🌹`,
+            'chaleureux': `Ma chère Maman ${recipient} 🌸,\n\nBonne fête des Mères ! Merci pour tout ton amour, ta patience et ta présence. Tu es mon roc, ma confidente, ma meilleure amie. Je suis si fier(e) d'être ton enfant.\n\nJe t'aime infiniment ! 💝🌺`
+        },
+        'fete-peres': {
+            'fun': `Papa ${recipient} ! 👨🏆\n\nBonne fête des Pères ! T'es le meilleur papa de la galaxie ! Merci pour tous les conseils, les blagues nulles et ton soutien sans faille ! Tu assures grave !\n\nJe t'aime Papa ! 💪🚀`,
+            'sérieux': `Cher ${recipient},\n\nEn cette fête des Pères, je souhaite vous exprimer ma profonde reconnaissance. Vous avez toujours été un modèle de sagesse et de force. Merci d'être le père que vous êtes.\n\nBonne fête Papa. 🎩`,
+            'chaleureux': `Mon cher Papa ${recipient} 👨,\n\nBonne fête des Pères ! Tu es mon héros, mon guide, mon inspiration. Merci pour tout ce que tu fais pour moi. Ton amour et ta présence sont précieux.\n\nJe t'aime très fort ! 💙⭐`
+        },
+        'mariage': {
+            'fun': `${recipient} ! 💍🥳\n\nFÉLICITATIONS pour votre mariage ! Que votre amour soit éternel, vos rires constants et vos aventures infinies ! Prêts pour la plus belle des aventures ?\n\nVive les mariés ! 🎉💖🍾`,
+            'sérieux': `Cher(e) ${recipient},\n\nToutes mes félicitations pour votre union. Puisse votre mariage être source de bonheur, de complicité et d'épanouissement mutuel. Mes meilleurs vœux de bonheur.\n\nFélicitations. 💍`,
+            'chaleureux': `Cher(e) ${recipient} 💖,\n\nFélicitations pour votre mariage ! Que votre amour grandisse jour après jour, que votre complicité soit éternelle et que vous viviez mille merveilles ensemble.\n\nTout mon bonheur pour vous ! 💍✨🎊`
+        },
+        'naissance': {
+            'fun': `${recipient} ! 👶🎈\n\nBienvenue au petit bout de chou ! Une nouvelle aventure commence ! Que ce bébé vous apporte des tonnes de bonheur, de câlins et... de nuits blanches ! 😄\n\nFélicitations aux parents ! 💛🍼`,
+            'sérieux': `Cher(e) ${recipient},\n\nToutes mes félicitations pour cette naissance. Puisse ce nouveau-né vous apporter joie, fierté et accomplissement. Mes meilleurs vœux pour cette nouvelle étape.\n\nFélicitations. 👶`,
+            'chaleureux': `Cher(e) ${recipient} 💛,\n\nBienvenue au petit ange ! Que ce bébé illumine vos vies de son sourire et de son amour. Vous allez vivre les plus beaux moments de votre vie. Profitez de chaque instant !\n\nTout mon bonheur ! 👶✨🎈`
+        },
+        'diplome': {
+            'fun': `${recipient} ! 🎓🏆\n\nBRAVO CHAMPION(NE) ! Tu l'as fait ! Ton diplôme est mérité après tout ce travail ! Maintenant, c'est l'heure de fêter ça comme il se doit ! Le monde t'attend !\n\nFélicitations ! 🎉🚀📚`,
+            'sérieux': `Cher(e) ${recipient},\n\nToutes mes félicitations pour l'obtention de votre diplôme. Votre persévérance et votre travail ont porté leurs fruits. Je vous souhaite une brillante carrière.\n\nFélicitations. 🎓`,
+            'chaleureux': `Bravo ${recipient} ! 🎓💫\n\nTu as réussi ! Ton diplôme est la récompense de ton courage et de ta détermination. Je suis si fier(e) de toi ! L'avenir te réserve de belles choses !\n\nToutes mes félicitations ! 🏆✨📖`
+        },
+        'retraite': {
+            'fun': `${recipient} ! 🎉🍾\n\nBonne retraite ! Fini le boulot, place aux loisirs ! Profite de chaque instant, voyage, détends-toi et fais tout ce que tu n'as jamais eu le temps de faire !\n\nLa belle vie commence ! 🏖️🎊`,
+            'sérieux': `Cher(e) ${recipient},\n\nToutes mes félicitations pour votre départ en retraite. Après toutes ces années de travail, vous méritez amplement de profiter pleinement de cette nouvelle étape.\n\nBonne retraite. 🎩`,
+            'chaleureux': `Cher(e) ${recipient} 🎉,\n\nBonne retraite ! Tu as tellement donné, maintenant c'est ton tour de recevoir ! Profite de chaque moment, réalise tes rêves et savoure cette liberté bien méritée !\n\nToutes mes félicitations ! ✨🏆🌟`
+        },
+        'merci': {
+            'fun': `${recipient} ! 🙏✨\n\nMERCI MERCI MERCI ! T'es vraiment génial(e) ! Ce que tu as fait pour moi compte énormément ! T'es quelqu'un d'exceptionnel et je suis chanceux(se) de t'avoir !\n\nMille mercis ! 💚🎉`,
+            'sérieux': `Cher(e) ${recipient},\n\nJe tenais à vous exprimer ma sincère gratitude. Votre aide et votre soutien ont été précieux. Je vous en suis profondément reconnaissant(e).\n\nMerci. 🙏`,
+            'chaleureux': `Mon cher ${recipient} 💚,\n\nMerci du fond du cœur ! Ta gentillesse, ta générosité et ton soutien m'ont vraiment touché(e). Tu es une personne formidable et je suis reconnaissant(e) de t'avoir dans ma vie.\n\nMerci infiniment ! 🌟🙏💖`
         }
     };
 
-    return messages[type]?.[tone] || `Cher(e) ${recipient},\n\nJe te souhaite une excellente année 2026 remplie de bonheur et de réussite !\n\nBien à toi.`;
+    return messages[type]?.[tone] || `Cher(e) ${recipient},\n\nJe te souhaite le meilleur pour cette occasion spéciale !\n\nBien à toi.`;
 }
 
 // Gestion du formulaire
@@ -114,6 +207,11 @@ document.getElementById('flyerForm').addEventListener('submit', async (e) => {
     const stickersFireworks = document.getElementById('stickers-fireworks').checked;
     const customMessage = document.getElementById('customMessage').value.trim();
     
+    // Récupérer les données de signature
+    const addSignature = document.getElementById('addSignature').checked;
+    const senderName = document.getElementById('senderName').value.trim();
+    const senderRelation = document.getElementById('senderRelation').value || document.getElementById('customRelation').value.trim();
+    
     // Afficher le loader
     document.getElementById('flyerForm').classList.add('hidden');
     document.getElementById('loader').classList.remove('hidden');
@@ -131,7 +229,12 @@ document.getElementById('flyerForm').addEventListener('submit', async (e) => {
         type, recipient, tone, theme, message,
         palette, fontStyle, quality,
         stickers: { hearts: stickersHearts, stars: stickersStars, fireworks: stickersFireworks },
-        bgImage: loadedBgImage
+        bgImage: loadedBgImage,
+        signature: {
+            enabled: addSignature,
+            senderName: senderName,
+            relation: senderRelation
+        }
     };
     
     // Créer le flyer
@@ -326,15 +429,47 @@ async function createFlyer(message, type, recipient) {
     }
     
     // Footer avec date et signature
-    const footerY = contentY + contentHeight - 40;
+    let footerY = contentY + contentHeight - 40;
+    
+    // Signature de l'expéditeur (si activée)
+    if (currentFlyer.signature && currentFlyer.signature.enabled && currentFlyer.signature.senderName) {
+        footerY -= 60; // Remonter pour faire de la place
+        
+        ctx.font = 'italic 24px Inter';
+        ctx.fillStyle = '#4a5568';
+        ctx.textAlign = 'center';
+        
+        // Nom de l'expéditeur
+        ctx.fillText(currentFlyer.signature.senderName, canvas.width / 2, contentY + contentHeight - 90);
+        
+        // Relation (si fournie)
+        if (currentFlyer.signature.relation) {
+            ctx.font = 'italic 20px Inter';
+            ctx.fillStyle = '#718096';
+            ctx.fillText(currentFlyer.signature.relation, canvas.width / 2, contentY + contentHeight - 65);
+        }
+        
+        // Ligne décorative au-dessus de la signature
+        ctx.strokeStyle = paletteColors[1];
+        ctx.lineWidth = 2;
+        ctx.globalAlpha = 0.5;
+        ctx.beginPath();
+        ctx.moveTo(canvas.width / 2 - 100, contentY + contentHeight - 105);
+        ctx.lineTo(canvas.width / 2 + 100, contentY + contentHeight - 105);
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+    }
+    
+    // Date
     ctx.font = tone === 'sérieux' ? '20px Inter' : 'italic 22px Inter';
     ctx.fillStyle = '#718096';
+    ctx.textAlign = 'center';
     
     const today = new Date();
     const dateStr = today.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
     ctx.fillText(dateStr, canvas.width / 2, footerY);
     
-    // Signature personnalisée
+    // Signature personnalisée du site
     ctx.font = '18px Inter';
     ctx.fillStyle = '#a0aec0';
     ctx.fillText('✨ Créé avec amour sur aiflyers.netlify.app ✨', canvas.width / 2, canvas.height - 25);
@@ -596,6 +731,15 @@ function regenerate() {
     document.getElementById('stickers-hearts').checked = currentFlyer.stickers?.hearts || false;
     document.getElementById('stickers-stars').checked = currentFlyer.stickers?.stars || false;
     document.getElementById('stickers-fireworks').checked = currentFlyer.stickers?.fireworks || false;
+    
+    // Restaurer la signature si présente
+    if (currentFlyer.signature && currentFlyer.signature.enabled) {
+        document.getElementById('addSignature').checked = true;
+        document.getElementById('signatureFields').classList.remove('hidden');
+        document.getElementById('senderName').value = currentFlyer.signature.senderName || '';
+        document.getElementById('senderRelation').value = currentFlyer.signature.relation || '';
+    }
+    
     showGenerator();
 }
 
@@ -641,7 +785,8 @@ function downloadFlyer() {
 
 // Partager sur WhatsApp
 function shareOnWhatsApp() {
-    const shareText = `🎉 Regarde la superbe carte ${currentFlyer.type} que j'ai créée avec l'IA !\n\n✨ Crée la tienne gratuitement sur : ${window.location.origin}\n\n#Vœux2026 #CartePersonnalisée`;
+    const shareUrl = generateShareUrl ? generateShareUrl() : window.location.origin;
+    const shareText = `🎉 Regarde la superbe carte ${currentFlyer.type} que j'ai créée avec l'IA !\n\n👉 ${shareUrl}\n\n#Vœux2026 #CartePersonnalisée`;
     const encodedText = encodeURIComponent(shareText);
     window.open(`https://wa.me/?text=${encodedText}`, '_blank');
 }
