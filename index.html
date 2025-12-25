@@ -39,8 +39,6 @@
                 <span class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm">✅ Gratuit</span>
                 <span class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm">⚡ Ultra rapide</span>
                 <span class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm">🎨 Design adapté</span>
-                <span class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm">📱 Mobile OK</span>
-                <span class="bg-yellow-400/90 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-bold text-purple-900 animate-pulse">💎 Premium 2.99€</span>
             </div>
             
             <button onclick="showGenerator()" class="bg-white text-purple-600 px-8 py-4 rounded-full text-xl font-bold shadow-2xl hover:scale-110 transform transition-all duration-300">
@@ -48,7 +46,7 @@
             </button>
             
             <p class="mt-6 text-sm opacity-75">
-                ⚡ Téléchargement gratuit après une courte publicité
+                ⚡ Téléchargement gratuit • Une courte pub de 10 secondes
             </p>
             <p class="mt-2 text-sm opacity-80">
                 🔗 Lien du site: <a href="https://aiflyers.netlify.app/" target="_blank" rel="noopener" class="underline font-semibold">https://aiflyers.netlify.app/</a>
@@ -145,8 +143,16 @@
                 <!-- Nom du destinataire -->
                 <div>
                     <label class="block text-gray-700 font-semibold mb-2">Nom du destinataire</label>
-                    <input type="text" id="recipient" placeholder="Ex: Marie, Papa, L'équipe..." 
-                           class="w-full p-3 border-2 border-purple-200 rounded-lg focus:border-purple-500 outline-none">
+                    <div class="grid grid-cols-4 gap-2">
+                        <select id="formule" class="col-span-1 p-3 border-2 border-purple-200 rounded-lg focus:border-purple-500 outline-none text-sm">
+                            <option value="">Aucun</option>
+                            <option value="Cher">Cher</option>
+                            <option value="Chère">Chère</option>
+                            <option value="Chers">Chers</option>
+                        </select>
+                        <input type="text" id="recipient" placeholder="Ex: Marie, Papa, L'équipe..." 
+                               class="col-span-3 p-3 border-2 border-purple-200 rounded-lg focus:border-purple-500 outline-none">
+                    </div>
                 </div>
                 
                 <!-- Signature (optionnelle) -->
@@ -156,35 +162,39 @@
                         <span class="text-gray-700 font-semibold">✍️ Ajouter ma signature</span>
                     </label>
                     
-                    <div id="signatureFields" class="space-y-3 hidden">
-                        <div>
-                            <label class="block text-gray-700 text-sm font-semibold mb-1">Ton nom</label>
-                            <input type="text" id="senderName" placeholder="Ex: Julie, Marc, La famille Dupont..." 
-                                   class="w-full p-2 border-2 border-purple-200 rounded-lg focus:border-purple-500 outline-none text-sm">
+                    <div id="signatureFields" class="hidden">
+                        <!-- Champs alignés sur une ligne -->
+                        <div class="grid grid-cols-2 gap-3 mb-3">
+                            <div>
+                                <label class="block text-gray-700 text-sm font-semibold mb-1">Ton nom</label>
+                                <input type="text" id="senderName" placeholder="Ex: Julie, Marc..." 
+                                       class="w-full p-2 border-2 border-purple-200 rounded-lg focus:border-purple-500 outline-none text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-gray-700 text-sm font-semibold mb-1">Ta relation</label>
+                                <select id="senderRelation" class="w-full p-2 border-2 border-purple-200 rounded-lg focus:border-purple-500 outline-none text-sm">
+                                    <option value="">Personnalisé</option>
+                                    <option value="Ton ami(e)">Ton ami(e)</option>
+                                    <option value="Ton meilleur(e) ami(e)">Ton meilleur(e) ami(e)</option>
+                                    <option value="Ton fils">Ton fils</option>
+                                    <option value="Ta fille">Ta fille</option>
+                                    <option value="Ton frère">Ton frère</option>
+                                    <option value="Ta sœur">Ta sœur</option>
+                                    <option value="Ton papa">Ton papa</option>
+                                    <option value="Ta maman">Ta maman</option>
+                                    <option value="Tes enfants">Tes enfants</option>
+                                    <option value="Ta famille">Ta famille</option>
+                                    <option value="Ton collègue">Ton collègue</option>
+                                    <option value="Ton équipe">Ton équipe</option>
+                                    <option value="Ton chéri">Ton chéri</option>
+                                    <option value="Ta chérie">Ta chérie</option>
+                                    <option value="Celui/Celle qui t'aime">Celui/Celle qui t'aime</option>
+                                </select>
+                            </div>
                         </div>
-                        <div>
-                            <label class="block text-gray-700 text-sm font-semibold mb-1">Ta relation</label>
-                            <select id="senderRelation" class="w-full p-2 border-2 border-purple-200 rounded-lg focus:border-purple-500 outline-none text-sm">
-                                <option value="">Personnalisé (écris ci-dessous)</option>
-                                <option value="Ton ami(e)">Ton ami(e)</option>
-                                <option value="Ton meilleur(e) ami(e)">Ton meilleur(e) ami(e)</option>
-                                <option value="Ton fils">Ton fils</option>
-                                <option value="Ta fille">Ta fille</option>
-                                <option value="Ton frère">Ton frère</option>
-                                <option value="Ta sœur">Ta sœur</option>
-                                <option value="Ton papa">Ton papa</option>
-                                <option value="Ta maman">Ta maman</option>
-                                <option value="Tes enfants">Tes enfants</option>
-                                <option value="Ta famille">Ta famille</option>
-                                <option value="Ton collègue">Ton collègue</option>
-                                <option value="Ton équipe">Ton équipe</option>
-                                <option value="Ton chéri">Ton chéri</option>
-                                <option value="Ta chérie">Ta chérie</option>
-                                <option value="Celui/Celle qui t'aime">Celui/Celle qui t'aime</option>
-                            </select>
-                            <input type="text" id="customRelation" placeholder="Ou écris ta propre relation..." 
-                                   class="w-full p-2 border-2 border-purple-200 rounded-lg focus:border-purple-500 outline-none text-sm mt-2 hidden">
-                        </div>
+                        <!-- Champ personnalisé (pleine largeur) -->
+                        <input type="text" id="customRelation" placeholder="Ou écris ta propre relation..." 
+                               class="w-full p-2 border-2 border-purple-200 rounded-lg focus:border-purple-500 outline-none text-sm hidden">
                     </div>
                 </div>
                 
@@ -236,15 +246,6 @@
                     <label class="block text-gray-700 font-semibold mb-2">Image de fond (optionnelle)</label>
                     <input type="file" id="bgImage" accept="image/*" class="w-full p-3 border-2 border-purple-200 rounded-lg">
                     <p class="text-xs text-gray-500 mt-1">Conseil: image verticale ou haute résolution</p>
-                </div>
-
-                <!-- Qualité du téléchargement -->
-                <div>
-                    <label class="block text-gray-700 font-semibold mb-2">Qualité du téléchargement</label>
-                    <select id="quality" class="w-full p-3 border-2 border-purple-200 rounded-lg focus:border-purple-500 outline-none">
-                        <option value="standard">📥 Standard (800 x 1000)</option>
-                        <option value="hd">📥 HD (1200 x 1500)</option>
-                    </select>
                 </div>
                 
                 <!-- Thème visuel -->
@@ -343,8 +344,8 @@
             <h3 class="text-2xl font-bold mb-4">Ton flyer est prêt !</h3>
             <p class="text-gray-600 mb-6">Téléchargement dans <span id="countdown" class="text-3xl font-bold text-purple-600">10</span> secondes...</p>
             
-            <!-- Publicité Native Banner (non intrusive) -->
-            <div class="mb-6 min-h-[250px] flex items-center justify-center bg-gray-50 rounded-lg p-4">
+            <!-- Native Banner (format statique non-intrusif) -->
+            <div class="mb-6 min-h-[200px] flex items-center justify-center bg-gray-50 rounded-lg p-4">
                 <script async="async" data-cfasync="false" src="https://pl28328297.effectivegatecpm.com/c2d6a3873c9ba719dc784ca5f48ba4bf/invoke.js"></script>
                 <div id="container-c2d6a3873c9ba719dc784ca5f48ba4bf"></div>
             </div>
@@ -359,22 +360,7 @@
         </div>
     </div>
     
-    <!-- Barre de publicité discrète en bas -->
-    <div id="sticky-ad-bar" class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm shadow-lg border-t border-purple-100 z-40">
-        <div class="container mx-auto px-2 py-1">
-            <div class="flex items-center justify-between gap-2">
-                <div class="flex-1 flex justify-center overflow-hidden">
-                    <!-- Banner publicitaire discrète -->
-                    <div class="max-w-full overflow-hidden">
-                        <script src="https://pl28328299.effectivegatecpm.com/c7/11/52/c71152ce7f985909d62aa01b0c737864.js"></script>
-                    </div>
-                </div>
-                <button onclick="closeAdBar()" class="text-gray-400 hover:text-gray-600 text-lg font-bold flex-shrink-0 px-2">
-                    ×
-                </button>
-            </div>
-        </div>
-    </div>
+
     
     <script src="script.js"></script>
     <script src="templates.js"></script>

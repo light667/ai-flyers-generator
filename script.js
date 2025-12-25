@@ -2,11 +2,11 @@
 let currentFlyer = {
     type: '',
     recipient: '',
+    formule: '',
     tone: '',
     theme: 'moderne',
     palette: 'parDefaut',
     fontStyle: 'inter',
-    quality: 'standard',
     stickers: { hearts: false, stars: false, fireworks: false },
     bgImage: null,
     message: '',
@@ -124,17 +124,17 @@ function getPreGeneratedMessage(type, recipient, tone) {
         'nouvel an': {
             'fun': `Coucou ${recipient} ! 🎊✨\n\nQue 2026 t'apporte plein de bonheur, de réussite et de moments de folie ! Que cette nouvelle année soit remplie de rires, d'aventures incroyables et de projets qui déchirent ! 🚀🎉\n\nGros bisous et bonne année ! 🥳💖`,
             'sérieux': `Cher(e) ${recipient},\n\nEn cette nouvelle année 2026, je vous adresse mes meilleurs vœux de santé, de prospérité et de succès. Que cette année vous apporte satisfaction dans tous vos projets et moments précieux avec vos proches.\n\nMeilleurs vœux pour 2026.`,
-            'chaleureux': `Mon cher ${recipient} 💝,\n\nJe te souhaite une merveilleuse année 2026 pleine de bonheur, de santé et de réussite. Que chaque jour t'apporte de belles surprises et que tes rêves deviennent réalité.\n\nAvec toute mon affection ! 🌟`
+            'chaleureux': `${recipient} 💝,\n\nJe te souhaite une merveilleuse année 2026 pleine de bonheur, de santé et de réussite. Que chaque jour t'apporte de belles surprises et que tes rêves deviennent réalité.\n\nAvec toute mon affection ! 🌟`
         },
         'noel': {
             'fun': `Hey ${recipient} ! 🎄🎅\n\nJoyeux Noël à toi ! Que le Père Noël te gâte comme jamais et que cette période soit magique ! Profite bien des fêtes, des bons plats et des moments en famille ! 🎁✨\n\nHo Ho Ho ! 🦌🔔`,
             'sérieux': `Cher(e) ${recipient},\n\nJe vous souhaite un très joyeux Noël entouré de vos proches. Que cette fête vous apporte paix, sérénité et moments de partage précieux.\n\nJoyeuses fêtes de fin d'année.`,
-            'chaleureux': `Mon cher ${recipient} 🎄💖,\n\nJe te souhaite un Noël rempli de magie, de tendresse et de moments inoubliables. Que la chaleur des fêtes illumine ton cœur et celui de tes proches.\n\nGros câlins de Noël ! ⭐`
+            'chaleureux': `${recipient} 🎄💖,\n\nJe te souhaite un Noël rempli de magie, de tendresse et de moments inoubliables. Que la chaleur des fêtes illumine ton cœur et celui de tes proches.\n\nGros câlins de Noël ! ⭐`
         },
         'anniversaire': {
             'fun': `JOYEUX ANNIVERSAIRE ${recipient} ! 🎉🎂🎈\n\nC'est ton jour spécial et tu mérites que ça déchire ! Profite à fond, fais la fête, mange du gâteau et surtout... amuse-toi comme un fou ! Que cette nouvelle année t'apporte tout ce que tu désires !\n\nBIG BISOUS ! 🎁🥳✨`,
             'sérieux': `Cher(e) ${recipient},\n\nEn ce jour spécial, je vous présente mes meilleurs vœux d'anniversaire. Que cette nouvelle année de votre vie soit marquée par la réussite, la santé et l'épanouissement personnel.\n\nJoyeux anniversaire.`,
-            'chaleureux': `Joyeux anniversaire mon cher ${recipient} ! 🎂💖\n\nAujourd'hui, on célèbre ta présence dans nos vies ! Que cette journée soit remplie de joie, d'amour et de moments magiques. Tu es quelqu'un de spécial et tu mérites le meilleur !\n\nGros bisous et plein de bonheur ! 🎉✨`
+            'chaleureux': `Joyeux anniversaire ${recipient} ! 🎂💖\n\nAujourd'hui, on célèbre ta présence dans nos vies ! Que cette journée soit remplie de joie, d'amour et de moments magiques. Tu es quelqu'un de spécial et tu mérites le meilleur !\n\nGros bisous et plein de bonheur ! 🎉✨`
         },
         'pro': {
             'fun': `Salut ${recipient} ! 💼🚀\n\nMerci pour cette super collaboration ! Que 2026 nous apporte encore plus de succès et de projets extraordinaires ensemble !\n\nBelle année à toute l'équipe ! 🎊`,
@@ -143,12 +143,12 @@ function getPreGeneratedMessage(type, recipient, tone) {
         },
         'amour': {
             'fun': `Mon ${recipient} adoré ! 💕😍\n\nTu es ma personne préférée et je veux que 2026 soit notre meilleure année ! Plein d'amour, de fous rires et d'aventures ensemble !\n\nJe t'aime fort ! 💖🎊`,
-            'sérieux': `Mon cher ${recipient},\n\nEn cette nouvelle année, je te renouvelle tout mon amour et mon engagement. Que 2026 renforce encore nos liens et nous apporte sérénité et bonheur partagé.\n\nAvec tout mon amour.`,
+            'sérieux': `Mon amour ${recipient},\n\nEn cette nouvelle année, je te renouvelle tout mon amour et mon engagement. Que 2026 renforce encore nos liens et nous apporte sérénité et bonheur partagé.\n\nAvec tout mon amour.`,
             'chaleureux': `Mon tendre ${recipient} 💝,\n\nJe te souhaite une merveilleuse année 2026 à mes côtés. Que notre amour grandisse chaque jour et que nous vivions mille et une belles choses ensemble.\n\nJe t'aime infiniment ! 💖✨`
         },
         'saint-valentin': {
             'fun': `Mon ${recipient} d'amour ! 💖😘\n\nJoyeuse Saint-Valentin ! Tu fais battre mon cœur comme jamais ! T'es mon crush, ma vie, mon tout ! Cette journée est spéciale parce que tu es spécial(e) !\n\nJe t'aime à la folie ! 💕💋✨`,
-            'sérieux': `Mon cher ${recipient},\n\nEn cette Saint-Valentin, je tiens à te dire combien tu comptes pour moi. Tu es la personne qui illumine mes journées et donne du sens à ma vie.\n\nAvec tout mon amour. 💝`,
+            'sérieux': `Mon amour ${recipient},\n\nEn cette Saint-Valentin, je tiens à te dire combien tu comptes pour moi. Tu es la personne qui illumine mes journées et donne du sens à ma vie.\n\nAvec tout mon amour. 💝`,
             'chaleureux': `Mon tendre ${recipient} 💖,\n\nJoyeuse Saint-Valentin mon amour ! Chaque jour à tes côtés est un cadeau. Tu es la meilleure chose qui me soit arrivée. Je t'aime plus que les mots ne peuvent le dire.\n\nÀ jamais tien/tienne ! 💘✨`
         },
         'fete-meres': {
@@ -159,7 +159,7 @@ function getPreGeneratedMessage(type, recipient, tone) {
         'fete-peres': {
             'fun': `Papa ${recipient} ! 👨🏆\n\nBonne fête des Pères ! T'es le meilleur papa de la galaxie ! Merci pour tous les conseils, les blagues nulles et ton soutien sans faille ! Tu assures grave !\n\nJe t'aime Papa ! 💪🚀`,
             'sérieux': `Cher ${recipient},\n\nEn cette fête des Pères, je souhaite vous exprimer ma profonde reconnaissance. Vous avez toujours été un modèle de sagesse et de force. Merci d'être le père que vous êtes.\n\nBonne fête Papa. 🎩`,
-            'chaleureux': `Mon cher Papa ${recipient} 👨,\n\nBonne fête des Pères ! Tu es mon héros, mon guide, mon inspiration. Merci pour tout ce que tu fais pour moi. Ton amour et ta présence sont précieux.\n\nJe t'aime très fort ! 💙⭐`
+            'chaleureux': `Papa ${recipient} 👨,\n\nBonne fête des Pères ! Tu es mon héros, mon guide, mon inspiration. Merci pour tout ce que tu fais pour moi. Ton amour et ta présence sont précieux.\n\nJe t'aime très fort ! 💙⭐`
         },
         'mariage': {
             'fun': `${recipient} ! 💍🥳\n\nFÉLICITATIONS pour votre mariage ! Que votre amour soit éternel, vos rires constants et vos aventures infinies ! Prêts pour la plus belle des aventures ?\n\nVive les mariés ! 🎉💖🍾`,
@@ -184,7 +184,7 @@ function getPreGeneratedMessage(type, recipient, tone) {
         'merci': {
             'fun': `${recipient} ! 🙏✨\n\nMERCI MERCI MERCI ! T'es vraiment génial(e) ! Ce que tu as fait pour moi compte énormément ! T'es quelqu'un d'exceptionnel et je suis chanceux(se) de t'avoir !\n\nMille mercis ! 💚🎉`,
             'sérieux': `Cher(e) ${recipient},\n\nJe tenais à vous exprimer ma sincère gratitude. Votre aide et votre soutien ont été précieux. Je vous en suis profondément reconnaissant(e).\n\nMerci. 🙏`,
-            'chaleureux': `Mon cher ${recipient} 💚,\n\nMerci du fond du cœur ! Ta gentillesse, ta générosité et ton soutien m'ont vraiment touché(e). Tu es une personne formidable et je suis reconnaissant(e) de t'avoir dans ma vie.\n\nMerci infiniment ! 🌟🙏💖`
+            'chaleureux': `${recipient} 💚,\n\nMerci du fond du cœur ! Ta gentillesse, ta générosité et ton soutien m'ont vraiment touché(e). Tu es une personne formidable et je suis reconnaissant(e) de t'avoir dans ma vie.\n\nMerci infiniment ! 🌟🙏💖`
         }
     };
 
@@ -196,12 +196,12 @@ document.getElementById('flyerForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     
     const type = document.getElementById('type').value;
+    const formule = document.getElementById('formule').value;
     const recipient = document.getElementById('recipient').value || 'toi';
     const tone = document.getElementById('tone').value;
     const theme = document.getElementById('theme').value;
     const palette = document.getElementById('palette').value;
     const fontStyle = document.getElementById('fontStyle').value;
-    const quality = document.getElementById('quality').value;
     const stickersHearts = document.getElementById('stickers-hearts').checked;
     const stickersStars = document.getElementById('stickers-stars').checked;
     const stickersFireworks = document.getElementById('stickers-fireworks').checked;
@@ -224,10 +224,15 @@ document.getElementById('flyerForm').addEventListener('submit', async (e) => {
         message = await generateMessage(type, recipient, tone);
     }
     
+    // Ajouter la formule de politesse au début du message si sélectionnée
+    if (formule && !customMessage) {
+        message = `${formule} ${recipient},\n\n${message.split('\n\n').slice(1).join('\n\n')}`;
+    }
+    
     // Sauvegarder l'état
     currentFlyer = { 
-        type, recipient, tone, theme, message,
-        palette, fontStyle, quality,
+        type, recipient, formule, tone, theme, message,
+        palette, fontStyle,
         stickers: { hearts: stickersHearts, stars: stickersStars, fireworks: stickersFireworks },
         bgImage: loadedBgImage,
         signature: {
@@ -251,16 +256,14 @@ async function createFlyer(message, type, recipient) {
     const canvas = document.getElementById('flyerCanvas');
     const ctx = canvas.getContext('2d');
     const tone = currentFlyer.tone || 'chaleureux';
-    const quality = currentFlyer.quality || 'standard';
     const confettiCanvas = document.getElementById('confettiCanvas');
 
-    // Ajuster la taille selon la qualité
-    if (quality === 'hd') {
-        canvas.width = 1200; canvas.height = 1500;
-        if (confettiCanvas) { confettiCanvas.width = 1200; confettiCanvas.height = 1500; }
-    } else {
-        canvas.width = 800; canvas.height = 1000;
-        if (confettiCanvas) { confettiCanvas.width = 800; confettiCanvas.height = 1000; }
+    // Taille standard
+    canvas.width = 800;
+    canvas.height = 1000;
+    if (confettiCanvas) {
+        confettiCanvas.width = 800;
+        confettiCanvas.height = 1000;
     }
     
     // Configurations détaillées selon le type et le ton
@@ -315,12 +318,12 @@ async function createFlyer(message, type, recipient) {
         const nh = img.height * ratio;
         const nx = (canvas.width - nw) / 2;
         const ny = (canvas.height - nh) / 2;
+        
+        // Dessiner l'image centrée
         ctx.drawImage(img, nx, ny, nw, nh);
-        // Overlay léger pour lisibilité
-        const overlay = ctx.createLinearGradient(0, 0, 0, canvas.height);
-        overlay.addColorStop(0, 'rgba(0,0,0,0.15)');
-        overlay.addColorStop(1, 'rgba(0,0,0,0.35)');
-        ctx.fillStyle = overlay;
+        
+        // Overlay transparent pour rendre l'image plus discrète
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
     } else {
         const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
@@ -351,9 +354,10 @@ async function createFlyer(message, type, recipient) {
         ctx.fillText(bg.emoji, canvas.width / 2 - 75, 180);
     }
     
-    // Zone de contenu avec effet de profondeur
-    const contentY = tone === 'fun' ? 220 : 140;
-    const contentHeight = canvas.height - contentY - 120;
+    // Zone de contenu avec effet de profondeur (cadre réduit)
+    const contentY = tone === 'fun' ? 240 : 160;
+    const contentPadding = 100; // Augmenter le padding pour réduire le cadre
+    const contentHeight = canvas.height - contentY - 140;
     
     // Ombre portée
     ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
@@ -361,9 +365,9 @@ async function createFlyer(message, type, recipient) {
     ctx.shadowOffsetX = 0;
     ctx.shadowOffsetY = 10;
     
-    // Carte principale
+    // Carte principale (plus petite)
     ctx.fillStyle = tone === 'sérieux' ? 'rgba(255, 255, 255, 0.98)' : 'rgba(255, 255, 255, 0.95)';
-    ctx.roundRect(50, contentY, canvas.width - 100, contentHeight, 25);
+    ctx.roundRect(contentPadding, contentY, canvas.width - (contentPadding * 2), contentHeight, 25);
     ctx.fill();
     
     // Bordure décorative
@@ -371,12 +375,12 @@ async function createFlyer(message, type, recipient) {
     if (tone === 'fun') {
         ctx.strokeStyle = bg.gradient[0];
         ctx.lineWidth = 8;
-        ctx.roundRect(50, contentY, canvas.width - 100, contentHeight, 25);
+        ctx.roundRect(contentPadding, contentY, canvas.width - (contentPadding * 2), contentHeight, 25);
         ctx.stroke();
     } else if (tone === 'sérieux') {
         ctx.strokeStyle = bg.gradient[1];
         ctx.lineWidth = 3;
-        ctx.roundRect(50, contentY, canvas.width - 100, contentHeight, 25);
+        ctx.roundRect(contentPadding, contentY, canvas.width - (contentPadding * 2), contentHeight, 25);
         ctx.stroke();
     }
     
@@ -402,8 +406,9 @@ async function createFlyer(message, type, recipient) {
     ctx.font = getBodyFont(currentFlyer.fontStyle, tone, fontSize);
     ctx.textAlign = 'center';
     
-    // Découper le message en lignes
-    const lines = wrapText(ctx, message, canvas.width - 180);
+    // Découper le message en lignes (adapté au cadre réduit)
+    const textMaxWidth = canvas.width - (contentPadding * 2) - 60; // Marge intérieure de 30px de chaque côté
+    const lines = wrapText(ctx, message, textMaxWidth);
     const lineHeight = fontSize + 12;
     let y = tone === 'fun' ? contentY + 60 : contentY + 120;
     
@@ -417,48 +422,9 @@ async function createFlyer(message, type, recipient) {
         y += lineHeight;
     });
     
-    // Nom du destinataire en grand si pas dans le message
-    if (!message.toLowerCase().includes(recipient.toLowerCase()) && recipient !== 'toi') {
-        y += 20;
-        ctx.font = 'bold 40px Inter';
-        const nameGradient = ctx.createLinearGradient(0, y - 40, 0, y);
-        nameGradient.addColorStop(0, paletteColors[0]);
-        nameGradient.addColorStop(1, paletteColors[1]);
-        ctx.fillStyle = nameGradient;
-        ctx.fillText(recipient, canvas.width / 2, y);
-    }
-    
-    // Footer avec date et signature
-    let footerY = contentY + contentHeight - 40;
-    
-    // Signature de l'expéditeur (si activée)
-    if (currentFlyer.signature && currentFlyer.signature.enabled && currentFlyer.signature.senderName) {
-        footerY -= 60; // Remonter pour faire de la place
-        
-        ctx.font = 'italic 24px Inter';
-        ctx.fillStyle = '#4a5568';
-        ctx.textAlign = 'center';
-        
-        // Nom de l'expéditeur
-        ctx.fillText(currentFlyer.signature.senderName, canvas.width / 2, contentY + contentHeight - 90);
-        
-        // Relation (si fournie)
-        if (currentFlyer.signature.relation) {
-            ctx.font = 'italic 20px Inter';
-            ctx.fillStyle = '#718096';
-            ctx.fillText(currentFlyer.signature.relation, canvas.width / 2, contentY + contentHeight - 65);
-        }
-        
-        // Ligne décorative au-dessus de la signature
-        ctx.strokeStyle = paletteColors[1];
-        ctx.lineWidth = 2;
-        ctx.globalAlpha = 0.5;
-        ctx.beginPath();
-        ctx.moveTo(canvas.width / 2 - 100, contentY + contentHeight - 105);
-        ctx.lineTo(canvas.width / 2 + 100, contentY + contentHeight - 105);
-        ctx.stroke();
-        ctx.globalAlpha = 1;
-    }
+    // Footer avec date et signature (bien espacé)
+    const footerStartY = contentY + contentHeight - 100;
+    let currentFooterY = footerStartY;
     
     // Date
     ctx.font = tone === 'sérieux' ? '20px Inter' : 'italic 22px Inter';
@@ -467,7 +433,38 @@ async function createFlyer(message, type, recipient) {
     
     const today = new Date();
     const dateStr = today.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
-    ctx.fillText(dateStr, canvas.width / 2, footerY);
+    ctx.fillText(dateStr, canvas.width / 2, currentFooterY);
+    
+    // Signature de l'expéditeur (si activée)
+    if (currentFlyer.signature && currentFlyer.signature.enabled && currentFlyer.signature.senderName) {
+        currentFooterY += 35; // Espacement après la date
+        
+        // Ligne décorative au-dessus de la signature
+        ctx.strokeStyle = paletteColors[1];
+        ctx.lineWidth = 2;
+        ctx.globalAlpha = 0.5;
+        ctx.beginPath();
+        ctx.moveTo(canvas.width / 2 - 100, currentFooterY);
+        ctx.lineTo(canvas.width / 2 + 100, currentFooterY);
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+        
+        currentFooterY += 25; // Espacement après la ligne
+        
+        // Nom de l'expéditeur
+        ctx.font = 'italic 24px Inter';
+        ctx.fillStyle = '#4a5568';
+        ctx.textAlign = 'center';
+        ctx.fillText(currentFlyer.signature.senderName, canvas.width / 2, currentFooterY);
+        
+        // Relation (si fournie)
+        if (currentFlyer.signature.relation) {
+            currentFooterY += 25; // Espacement après le nom
+            ctx.font = 'italic 20px Inter';
+            ctx.fillStyle = '#718096';
+            ctx.fillText(currentFlyer.signature.relation, canvas.width / 2, currentFooterY);
+        }
+    }
     
     // Signature personnalisée du site
     ctx.font = '18px Inter';
@@ -722,12 +719,12 @@ if (!CanvasRenderingContext2D.prototype.roundRect) {
 // Régénérer
 function regenerate() {
     document.getElementById('recipient').value = currentFlyer.recipient;
+    document.getElementById('formule').value = currentFlyer.formule || '';
     document.getElementById('type').value = currentFlyer.type;
     document.getElementById('tone').value = currentFlyer.tone;
     document.getElementById('theme').value = currentFlyer.theme;
     document.getElementById('palette').value = currentFlyer.palette || 'parDefaut';
     document.getElementById('fontStyle').value = currentFlyer.fontStyle || 'inter';
-    document.getElementById('quality').value = currentFlyer.quality || 'standard';
     document.getElementById('stickers-hearts').checked = currentFlyer.stickers?.hearts || false;
     document.getElementById('stickers-stars').checked = currentFlyer.stickers?.stars || false;
     document.getElementById('stickers-fireworks').checked = currentFlyer.stickers?.fireworks || false;
@@ -777,7 +774,8 @@ function downloadFlyer() {
     
     // Incrémenter le compteur
     counter++;
-    document.getElementById('counter').textContent = counter;
+    const counterEl = document.getElementById('counter');
+    if (counterEl) counterEl.textContent = counter;
 }
 
 // Partager sur WhatsApp
