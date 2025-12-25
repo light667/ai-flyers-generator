@@ -743,27 +743,24 @@ function regenerate() {
     showGenerator();
 }
 
-// Publicité forcée et téléchargement
+// Publicité et téléchargement optimisé
 function showAdAndDownload() {
     const modal = document.getElementById('adModal');
     modal.classList.remove('hidden');
     
-    let countdown = 10;
+    let countdown = 3;
     const countdownEl = document.getElementById('countdown');
     const progressBar = document.getElementById('progressBar');
     
     const interval = setInterval(() => {
         countdown--;
         countdownEl.textContent = countdown;
-        progressBar.style.width = ((10 - countdown) / 10 * 100) + '%';
+        progressBar.style.width = ((3 - countdown) / 3 * 100) + '%';
         
         if (countdown <= 0) {
             clearInterval(interval);
             downloadFlyer();
             modal.classList.add('hidden');
-            
-            // Afficher un message de succès
-            alert('✅ Ton flyer a été téléchargé ! Partage-le sur WhatsApp ! 🎉');
         }
     }, 1000);
 }
@@ -791,33 +788,18 @@ function shareOnWhatsApp() {
     window.open(`https://wa.me/?text=${encodedText}`, '_blank');
 }
 
-// Fermer la barre de pub permanente
+// Fermer la barre de pub discrète
 function closeAdBar() {
     const adBar = document.getElementById('sticky-ad-bar');
-    adBar.classList.add('hidden');
-    document.body.style.paddingBottom = '0';
-}
-
-// Auto-cacher la barre de pub après 10 secondes (moins intrusif)
-setTimeout(() => {
-    const adBar = document.getElementById('sticky-ad-bar');
-    if (adBar && !adBar.classList.contains('hidden')) {
-        adBar.style.opacity = '0.7';
-        adBar.style.transform = 'translateY(60%)';
-        adBar.style.transition = 'all 0.3s ease';
-        
-        // Afficher complètement au hover
-        adBar.addEventListener('mouseenter', () => {
-            adBar.style.opacity = '1';
-            adBar.style.transform = 'translateY(0)';
-        });
-        
-        adBar.addEventListener('mouseleave', () => {
-            adBar.style.opacity = '0.7';
-            adBar.style.transform = 'translateY(60%)';
-        });
+    if (adBar) {
+        adBar.style.transition = 'opacity 0.3s ease';
+        adBar.style.opacity = '0';
+        setTimeout(() => {
+            adBar.classList.add('hidden');
+            document.body.style.paddingBottom = '0';
+        }, 300);
     }
-}, 10000);
+}
 
 // Image de fond personnalisée
 const bgInput = document.getElementById('bgImage');

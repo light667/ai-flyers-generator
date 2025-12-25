@@ -1,8 +1,8 @@
 /* Animations et styles custom */
 
-/* Espace pour la barre de pub fixe en bas */
+/* Espace discret pour la barre de pub en bas */
 body {
-    padding-bottom: 80px;
+    padding-bottom: 45px;
 }
 
 @keyframes float {

@@ -22,10 +22,6 @@
         <script src="https://cdn.tailwindcss.com"></script>
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="envelope-animation.css">
-    
-    <!-- Adsterra Scripts - Optimisés pour UX -->
-    <script src="https://pl28328446.effectivegatecpm.com/9b/9f/de/9b9fdecfe956e26ab7443cc13b99c2bd.js"></script>
-    <script src="https://pl28328299.effectivegatecpm.com/c7/11/52/c71152ce7f985909d62aa01b0c737864.js"></script>
 </head>
 <body class="bg-gradient-to-br from-purple-600 via-pink-500 to-red-500 min-h-screen">
     
@@ -340,16 +336,18 @@
         </div>
     </div>
     
-    <!-- Modal Publicité -->
+    <!-- Modal Téléchargement -->
     <div id="adModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
         <div class="bg-white rounded-2xl max-w-md w-full p-8 text-center relative">
-            <div class="text-6xl mb-4">🎁</div>
-            <h3 class="text-2xl font-bold mb-4">Merci de patienter !</h3>
-            <p class="text-gray-600 mb-6">Ton téléchargement commence dans <span id="countdown" class="text-3xl font-bold text-purple-600">10</span> secondes...</p>
+            <div class="text-6xl mb-4">🎉</div>
+            <h3 class="text-2xl font-bold mb-4">Ton flyer est prêt !</h3>
+            <p class="text-gray-600 mb-6">Téléchargement dans <span id="countdown" class="text-3xl font-bold text-purple-600">3</span> secondes...</p>
             
-            <!-- Zone pub Adsterra Native Banner -->
-            <div id="container-c2d6a3873c9ba719dc784ca5f48ba4bf" class="mb-6 min-h-[200px] flex items-center justify-center">
-                <p class="text-gray-400 text-sm">Chargement de la publicité...</p>
+            <div class="mb-6 p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg">
+                <p class="text-sm text-gray-600">
+                    💜 <strong>Service 100% gratuit</strong><br>
+                    <span class="text-xs">Sans inscription • HD inclus</span>
+                </p>
             </div>
             
             <div class="h-1 bg-gray-200 rounded-full overflow-hidden">
@@ -358,36 +356,21 @@
         </div>
     </div>
     
-    <!-- Barre de publicité permanente en bas -->
-    <div id="sticky-ad-bar" class="fixed bottom-0 left-0 right-0 bg-white shadow-2xl border-t-2 border-purple-200 z-40">
-        <div class="container mx-auto px-4 py-2">
-            <div class="flex items-center justify-between gap-3">
+    <!-- Barre de publicité discrète en bas -->
+    <div id="sticky-ad-bar" class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm shadow-lg border-t border-purple-100 z-40" style="opacity: 0.9;">
+        <div class="container mx-auto px-4 py-1.5">
+            <div class="flex items-center justify-between gap-2">
                 <div class="flex-1 flex justify-center overflow-hidden">
-                    <!-- Zone pub sticky bottom Adsterra (banner 728x90 ou responsive) -->
-                    <div id="container-sticky-bottom-banner" class="w-full max-w-4xl">
-                        <script async="async" data-cfasync="false" src="//pl28328297.effectivegatecpm.com/a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6/invoke.js"></script>
-                        <div id="container-a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6" class="flex justify-center">
-                            <!-- Banner sticky Adsterra -->
-                        </div>
+                    <div class="text-xs text-gray-500 py-2">
+                        💜 Service 100% gratuit - Merci de votre soutien
                     </div>
                 </div>
-                <button onclick="closeAdBar()" class="ml-2 text-gray-400 hover:text-gray-600 text-xl font-bold flex-shrink-0">
+                <button onclick="closeAdBar()" class="text-gray-400 hover:text-gray-600 text-lg font-bold flex-shrink-0 px-2">
                     ×
                 </button>
             </div>
         </div>
     </div>
-    
-    <!-- Social Bar Adsterra (revenus passifs constants) -->
-    <script type="text/javascript">
-        atOptions = {
-            'key' : '1a2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p',
-            'format' : 'iframe',
-            'height' : 60,
-            'width' : 468,
-            'params' : {}
-        };
-    </script>
     
     <script src="script.js"></script>
     <script src="templates.js"></script>
