@@ -748,14 +748,14 @@ function showAdAndDownload() {
     const modal = document.getElementById('adModal');
     modal.classList.remove('hidden');
     
-    let countdown = 3;
+    let countdown = 10;
     const countdownEl = document.getElementById('countdown');
     const progressBar = document.getElementById('progressBar');
     
     const interval = setInterval(() => {
         countdown--;
         countdownEl.textContent = countdown;
-        progressBar.style.width = ((3 - countdown) / 3 * 100) + '%';
+        progressBar.style.width = ((10 - countdown) / 10 * 100) + '%';
         
         if (countdown <= 0) {
             clearInterval(interval);
